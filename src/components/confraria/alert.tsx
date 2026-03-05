@@ -59,7 +59,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
 
     if (!isOpen) return null
 
-    const IconComponent = icon || defaultIcons[variant]
+    const DefaultIcon = defaultIcons[variant]
 
     const handleDismiss = () => {
       setIsOpen(false)
@@ -77,11 +77,9 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
         {...props}
       >
         <div className="flex gap-3">
-          {IconComponent && (
-            <div className={cn('mt-0.5 flex-shrink-0', alertVariants[variant].icon)}>
-              <IconComponent className="h-5 w-5" />
-            </div>
-          )}
+          <div className={cn('mt-0.5 flex-shrink-0', alertVariants[variant].icon)}>
+            {icon ? icon : <DefaultIcon className="h-5 w-5" />}
+          </div>
           <div className="flex-1">
             {title && <h5 className="mb-1 font-semibold">{title}</h5>}
             <div className="text-sm">{children}</div>
