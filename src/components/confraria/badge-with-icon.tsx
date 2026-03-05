@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge'
 import { LucideIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-interface BadgeWithIconProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BadgeWithIconProps extends React.HTMLAttributes<HTMLDivElement> {
   icon: LucideIcon
   label: string
   variant?:
