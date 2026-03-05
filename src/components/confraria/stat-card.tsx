@@ -3,7 +3,7 @@ import { LucideIcon, TrendingUp, TrendingDown } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
-interface StatCardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface StatCardProps extends React.HTMLAttributes<HTMLDivElement> {
   icon?: LucideIcon
   label: string
   value: string | number
