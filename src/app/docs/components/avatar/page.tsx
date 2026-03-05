@@ -7,7 +7,7 @@ import { StatCard } from '@/components/confraria/stat-card'
 import { EmptyState } from '@/components/confraria/empty-state'
 import { Copy, Check } from 'lucide-react'
 import { useState } from 'react'
-import { Users, TrendingUp, Shield, Zap } from 'lucide-react'
+import { Users, TrendingUp, Shield, Zap, Bike, Motorbike } from 'lucide-react'
 
 function CodeBlock({ code }: { code: string }) {
   const [copied, setCopied] = useState(false)
@@ -75,6 +75,51 @@ export default function AvatarPage() {
             code={`<Avatar alt="João Silva" size="md" fallback="JS" />
 <Avatar alt="Maria Santos" size="sm" fallback="MS" />
 <Avatar alt="Carlos Lima" size="lg" fallback="CL" />`}
+          />
+        </Card>
+      </div>
+
+      {/* Com Ícones de Moto */}
+      <div className="mb-16">
+        <h2 className="text-2xl font-bold mb-6 text-slate-900">Com Ícones de Moto</h2>
+        <Card className="p-6">
+          <div className="flex flex-wrap gap-8 mb-6">
+            <div className="flex flex-col items-center gap-2">
+              <div className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gradient-to-br from-confraria-300 to-confraria-600 text-white">
+                <Bike className="h-5 w-5" />
+              </div>
+              <p className="text-xs text-slate-600">Bike SM</p>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-gradient-to-br from-confraria-300 to-confraria-600 text-white">
+                <Bike className="h-6 w-6" />
+              </div>
+              <p className="text-xs text-slate-600">Bike MD</p>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-confraria-300 to-confraria-600 text-white">
+                <Motorbike className="h-8 w-8" />
+              </div>
+              <p className="text-xs text-slate-600">Motorbike LG</p>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <div className="inline-flex items-center justify-center h-16 w-16 rounded-md bg-gradient-to-br from-confraria-300 to-confraria-600 text-white">
+                <Motorbike className="h-8 w-8" />
+              </div>
+              <p className="text-xs text-slate-600">Motorbike Square</p>
+            </div>
+          </div>
+          <CodeBlock
+            code={`import { Bike, Motorbike } from 'lucide-react'
+
+{/* Avatar com ícone de moto */}
+<div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-gradient-to-br from-confraria-300 to-confraria-600 text-white">
+  <Bike className="h-6 w-6" />
+</div>
+
+<div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-confraria-300 to-confraria-600 text-white">
+  <Motorbike className="h-8 w-8" />
+</div>`}
           />
         </Card>
       </div>

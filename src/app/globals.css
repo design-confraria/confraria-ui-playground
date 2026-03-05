@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "./tokens.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -84,15 +83,15 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 1rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.76 0.16 120);
+  --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
@@ -159,7 +158,7 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
+  --primary: oklch(0.76 0.16 120);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
@@ -259,4 +258,37 @@
     font-family: var(--font-geist-mono);
     font-size: var(--font-size-sm);
   }
+}
+
+/* tokens.css — theme overrides for data-theme attribute */
+:root[data-theme="dark"] {
+  /* Base colors (override) */
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+
+  /* Primary / Semantic */
+  --primary: oklch(0.76 0.16 120);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+
+  /* Confraria brand (dark variants) */
+  --confraria-50: #0f1a0b;
+  --confraria-100: #14220c;
+  --confraria-200: #1b2f0e;
+  --confraria-300: #243f12;
+  --confraria-400: #2f4f16;
+  --confraria-500: #9FC132; /* keep brand accent */
+  --confraria-600: #728F21;
+  --confraria-700: #576D1E;
+  --confraria-800: #47571D;
+  --confraria-900: #3C4B1C;
 }
