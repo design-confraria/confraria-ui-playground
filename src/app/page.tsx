@@ -1,65 +1,142 @@
-import Image from "next/image";
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Card } from '@/components/ui/card'
+import { ArrowRight, Palette, Zap, Shield } from 'lucide-react'
+import Link from 'next/link'
+
+const features = [
+  {
+    icon: Palette,
+    title: 'Design Tokens',
+    description: 'Sistema de cores, tipografia e espaçamento consistente',
+  },
+  {
+    icon: Zap,
+    title: 'Componentes Rápidos',
+    description: 'Componentes construídos com Radix UI e shadcn',
+  },
+  {
+    icon: Shield,
+    title: 'Acessibilidade',
+    description: 'Totalmente acessível com WCAG 2.1 AA compliance',
+  },
+]
+
+const sections = [
+  {
+    title: 'Componentes Base',
+    description: 'Componentes fundamentais para construir interfaces',
+    href: '/docs/components/buttons',
+  },
+  {
+    title: 'Componentes Confraria',
+    description: 'Componentes customizados específicos do Confraria',
+    href: '/docs/components/alert',
+  },
+  {
+    title: 'Design Tokens',
+    description: 'Cores, tipografia e espaçamento padronizados',
+    href: '/docs/tokens/colors',
+  },
+  {
+    title: 'Ícones',
+    description: 'Biblioteca completa de ícones Lucide',
+    href: '/docs/icons',
+  },
+]
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main className="flex flex-col min-h-screen">
+      {/* Hero Section */}
+      <section className="flex-1 flex items-center justify-center py-20 px-4">
+        <div className="max-w-4xl w-full text-center">
+          <div className="mb-6">
+            <Badge variant="outline" className="text-sm">
+              Design System v1.0
+            </Badge>
+          </div>
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-slate-900">
+            Confraria Design System
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
+            Uma biblioteca completa de componentes React construída com shadcn/ui, Radix UI
+            e Lucide icons. Pronta para produção com suporte total a acessibilidade.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/docs/components/buttons">
+              <Button size="lg" className="w-full sm:w-auto">
+                Explorar Componentes
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Link href="/docs/tokens">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                Ver Design Tokens
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 px-4 bg-slate-50">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12 text-slate-900">
+            Características Principais
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {features.map((feature) => {
+              const Icon = feature.icon
+              return (
+                <Card key={feature.title} className="p-6">
+                  <div className="mb-4 p-3 bg-blue-50 rounded-lg w-fit">
+                    <Icon className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <h3 className="font-semibold text-lg mb-2 text-slate-900">
+                    {feature.title}
+                  </h3>
+                  <p className="text-slate-600">{feature.description}</p>
+                </Card>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Sections */}
+      <section className="py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold mb-12 text-slate-900">
+            Documentação
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {sections.map((section) => (
+              <Link key={section.href} href={section.href}>
+                <Card className="p-6 h-full hover:shadow-lg transition-shadow cursor-pointer">
+                  <h3 className="font-semibold text-lg mb-2 text-slate-900">
+                    {section.title}
+                  </h3>
+                  <p className="text-slate-600 mb-4">{section.description}</p>
+                  <div className="flex items-center text-blue-600 font-medium">
+                    Explorar <ArrowRight className="ml-2 h-4 w-4" />
+                  </div>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t bg-slate-50 py-8 px-4">
+        <div className="max-w-5xl mx-auto text-center">
+          <p className="text-slate-600 text-sm">
+            Confraria Design System • Construído com React, TypeScript, Tailwind CSS, shadcn/ui
+            e Radix UI
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+      </footer>
+    </main>
+  )
 }

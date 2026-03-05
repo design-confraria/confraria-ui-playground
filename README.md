@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Confraria Design System
 
-## Getting Started
+Uma biblioteca completa de componentes React construída com **shadcn/ui**, **Radix UI** e **Lucide icons**. Pronta para produção com suporte total a acessibilidade e TypeScript.
 
-First, run the development server:
+## ✨ Características
+
+- **Componentes Base**: Botões, cards, inputs, badges, dialogs e mais
+- **Componentes Customizados**: Alert, Avatar, StatCard, EmptyState, IconButton e mais
+- **Ícones**: +1000 ícones SVG do Lucide inclusos
+- **Design Tokens**: Paleta de cores, tipografia e espaçamento standardizados
+- **100% TypeScript**: Type-safe em todo o projeto
+- **Totalmente Acessível**: WCAG 2.1 AA compliance
+- **Tailwind CSS**: Estilização utilitária e flexível
+- **Documentação Interativa**: Showcase de componentes com código
+
+## 🚀 Começando
+
+### Pré-requisitos
+
+- Node.js 18+
+- npm ou yarn
+
+### Instalação
 
 ```bash
+# Clonar ou navegar para o projeto
+cd confraria-ui-playground
+
+# Instalar dependências
+npm install
+
+# Rodar o servidor de desenvolvimento
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse [http://localhost:3000](http://localhost:3000) para ver a documentação.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📦 Estrutura do Projeto
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── docs/
+│   │   ├── components/       # Documentação de componentes
+│   │   ├── tokens/           # Design tokens (cores, tipografia)
+│   │   ├── icons/            # Galeria de ícones
+│   │   └── layout.tsx        # Layout da documentação
+│   ├── layout.tsx
+│   └── page.tsx              # Home page
+├── components/
+│   ├── ui/                   # Componentes shadcn/ui
+│   └── confraria/            # Componentes customizados
+└── lib/
+    └── utils.ts              # Funções utilitárias
+```
 
-## Learn More
+## 🧩 Componentes Disponíveis
 
-To learn more about Next.js, take a look at the following resources:
+### Componentes Base (shadcn/ui)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Button, Card, Input, Textarea, Label, Badge
+- Dialog, Dropdown Menu, Tabs, Select, Checkbox
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Componentes Customizados (Confraria)
 
-## Deploy on Vercel
+- **Alert** - Alerta com variantes automáticas
+- **Avatar** - Avatar com fallback automático
+- **BadgeWithIcon** - Badge com ícone integrado
+- **StatCard** - Card para exibir estatísticas
+- **EmptyState** - Estado vazio elegante
+- **IconButton** - Botão apenas com ícone
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎨 Design Tokens
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Cores
+Paleta completa: Slate, Blue, Green, Red, Amber, Purple
+
+### Tipografia e Espaçamento
+Baseados em Tailwind CSS com escala 4px
+
+### Ícones Lucide
++1000 ícones SVG disponíveis
+
+## 🚢 Building para Produção
+
+```bash
+npm run build
+npm start
+```
+
+## 📚 Documentação
+
+Acesse a documentação interativa em:
+- `/docs/components/` - Componentes
+- `/docs/tokens/` - Design tokens
+- `/docs/icons/` - Galeria de ícones
+
+## 🔗 Stack
+
+- [Next.js](https://nextjs.org) - Framework React
+- [TypeScript](https://www.typescriptlang.org) - Type safety
+- [Tailwind CSS](https://tailwindcss.com) - Estilos
+- [shadcn/ui](https://ui.shadcn.com) - Componentes base
+- [Radix UI](https://www.radix-ui.com) - Primitivos
+- [Lucide Icons](https://lucide.dev) - Ícones
+
+---
+
+**Confraria Design System** - Pronto para produção
