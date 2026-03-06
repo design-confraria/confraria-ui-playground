@@ -25,6 +25,56 @@ const spacingTokens = [
   { name: '32', token: '--space-32', rem: '8rem', px: '128px' },
 ]
 
+const semanticGroups = [
+  {
+    name: 'Micro',
+    range: '2px – 8px',
+    tokens: ['--space-0-5', '--space-1', '--space-1-5', '--space-2'],
+    color: 'bg-violet-500/15 text-violet-700 dark:text-violet-300',
+    when: 'Espaçamento interno de componentes atômicos: gap entre ícone e texto, padding interno de badge, distância entre checkbox e label.',
+    never: 'Separar seções ou grupos maiores de conteúdo.',
+  },
+  {
+    name: 'Componente',
+    range: '12px – 24px',
+    tokens: ['--space-3', '--space-4', '--space-5', '--space-6'],
+    color: 'bg-primary/15 text-primary',
+    when: 'Padding interno de cards, gap entre campos de formulário, espaçamento entre elementos relacionados dentro de um mesmo bloco.',
+    never: 'Separar blocos distintos ou seções de página.',
+  },
+  {
+    name: 'Layout',
+    range: '32px – 64px',
+    tokens: ['--space-8', '--space-10', '--space-12', '--space-16'],
+    color: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300',
+    when: 'Gap entre cards em uma grade, margem entre seções de página, padding de container principal e colunas de layout.',
+    never: 'Espaçamentos internos de componentes — cria cards "vazios".',
+  },
+  {
+    name: 'Seção',
+    range: '80px – 128px',
+    tokens: ['--space-20', '--space-24', '--space-32'],
+    color: 'bg-amber-500/15 text-amber-700 dark:text-amber-300',
+    when: 'Margem entre blocos de página (hero, features, rodapé), padding de página inteira e áreas com carga editorial alta.',
+    never: 'Dentro de componentes ou entre elementos inline.',
+  },
+]
+
+function UsageBox({ use, avoid }: { use: string[]; avoid: string[] }) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+      <div className="bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900 rounded-lg p-4">
+        <p className="text-xs font-semibold text-green-700 dark:text-green-400 uppercase tracking-wide mb-2">✓ Use para</p>
+        <ul className="space-y-1">{use.map((t) => <li key={t} className="text-sm text-green-800 dark:text-green-300">• {t}</li>)}</ul>
+      </div>
+      <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900 rounded-lg p-4">
+        <p className="text-xs font-semibold text-red-700 dark:text-red-400 uppercase tracking-wide mb-2">✗ Evite</p>
+        <ul className="space-y-1">{avoid.map((t) => <li key={t} className="text-sm text-red-800 dark:text-red-300">• {t}</li>)}</ul>
+      </div>
+    </div>
+  )
+}
+
 export default function SpacingPage() {
   return (
     <div className="max-w-6xl mx-auto py-12 px-4">
@@ -32,14 +82,45 @@ export default function SpacingPage() {
         <Badge className="mb-4">Design Tokens</Badge>
         <h1 className="text-4xl font-bold mb-3 text-foreground">Espaçamento</h1>
         <p className="text-lg text-foreground/60 max-w-2xl">
-          Escala de espaçamento consistente para margens, paddings e gaps.
-          Baseada em múltiplos de 4px para manter ritmo visual harmônico.
+          Escala de espaçamento baseada em múltiplos de <strong className="text-foreground">4px</strong> — o menor denominador comum de grids digitais.
+          Padrão IBM Carbon, Material Design 3 e GitHub Primer: dividida em 4 grupos semânticos (micro, componente, layout, seção)
+          para que o contexto determine o passo certo, não a preferência visual.
         </p>
       </div>
 
+      {/* Grupos Semânticos */}
+      <section className="mb-16">
+        <h2 className="text-3xl font-bold mb-2 text-foreground">Grupos Semânticos</h2>
+        <p className="text-sm text-foreground/60 mb-8">
+          Padrão IBM Carbon — antes de escolher um valor, identifique o <em>contexto</em>, não o número.
+          Nunca use espaçamento de Seção dentro de um componente, nem espaçamento Micro entre blocos de conteúdo.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {semanticGroups.map(({ name, range, tokens, color, when, never }) => (
+            <Card key={name} className="p-5">
+              <div className="flex items-center gap-3 mb-3">
+                <span className={`text-sm font-semibold px-2.5 py-0.5 rounded-md ${color}`}>{name}</span>
+                <span className="text-xs font-mono text-foreground/40">{range}</span>
+              </div>
+              <div className="flex gap-1.5 mb-3 flex-wrap">
+                {tokens.map((t) => (
+                  <code key={t} className="text-xs bg-muted/60 border border-border px-1.5 py-0.5 rounded text-foreground/60">{t}</code>
+                ))}
+              </div>
+              <p className="text-sm text-foreground/70 mb-2"><strong className="text-foreground text-xs">USE:</strong> {when}</p>
+              <p className="text-sm text-foreground/50"><strong className="text-foreground/60 text-xs">NUNCA:</strong> {never}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
       {/* Escala Visual */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold mb-8 text-foreground">Escala de Espaçamento</h2>
+        <h2 className="text-3xl font-bold mb-2 text-foreground">Escala de Espaçamento</h2>
+        <p className="text-sm text-foreground/60 mb-8">
+          22 passos de 0 a 128px — todos múltiplos de 4px.
+          A barra colorida é proporcional ao valor real, permitindo comparar visualmente o salto entre passos consecutivos.
+        </p>
         <Card className="p-6">
           <div className="space-y-3">
             {spacingTokens.map((space) => (
@@ -68,7 +149,11 @@ export default function SpacingPage() {
 
       {/* Tabela de Referência */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold mb-8 text-foreground">Tabela de Referência</h2>
+        <h2 className="text-3xl font-bold mb-2 text-foreground">Tabela de Referência</h2>
+        <p className="text-sm text-foreground/60 mb-8">
+          Referência completa dos tokens com valores em rem e px.
+          Use rem em CSS para respeitar preferências de acessibilidade (“zoom de fonte” do usuário); px apenas em contextos que exigem valores fixos (bordas, sombras).
+        </p>
         <Card className="overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -114,10 +199,15 @@ export default function SpacingPage() {
 
       {/* Exemplos de Uso */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold mb-8 text-foreground">Exemplos de Uso</h2>
+        <h2 className="text-3xl font-bold mb-2 text-foreground">Exemplos de Uso</h2>
+        <p className="text-sm text-foreground/60 mb-8">
+          Padrão Gestalt Proximity (Atlassian DS) — itens <em>relacionados</em> ficam mais próximos entre si
+          do que de itens <em>não relacionados</em>. Isso cria agrupamento visual sem bordas ou cores.
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card className="p-6">
-            <h3 className="font-semibold text-foreground mb-4">Padding interno de Cards</h3>
+            <h3 className="font-semibold text-foreground mb-1">Padding interno de Cards</h3>
+            <p className="text-xs text-foreground/50 mb-4">Grupo Componente — --space-3 a --space-8</p>
             <div className="space-y-4">
               {['--space-3', '--space-4', '--space-6', '--space-8'].map((token) => {
                 const t = spacingTokens.find((s) => s.token === token)!
@@ -141,7 +231,8 @@ export default function SpacingPage() {
           </Card>
 
           <Card className="p-6">
-            <h3 className="font-semibold text-foreground mb-4">Gap entre elementos</h3>
+            <h3 className="font-semibold text-foreground mb-1">Gap entre elementos</h3>
+            <p className="text-xs text-foreground/50 mb-4">Grupo Micro a Componente — --space-2 a --space-8</p>
             <div className="space-y-4">
               {['--space-2', '--space-4', '--space-6', '--space-8'].map((token) => {
                 const t = spacingTokens.find((s) => s.token === token)!
@@ -166,47 +257,134 @@ export default function SpacingPage() {
         </div>
       </section>
 
+      {/* Ritmo Vertical */}
+      <section className="mb-16">
+        <h2 className="text-3xl font-bold mb-2 text-foreground">Ritmo Vertical</h2>
+        <p className="text-sm text-foreground/60 mb-8">
+          Padrão IBM Carbon e GitHub Primer — o espaçamento entre elementos <em>relacionados</em>
+          deve ser <strong className="text-foreground">menor</strong> que entre elementos <em>independentes</em>.
+          Isso sinaliza agrupamento sem bordas extras.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="p-6">
+            <p className="text-xs font-semibold text-green-600 dark:text-green-400 uppercase tracking-wide mb-5">✓ Correto — hierarquia clara</p>
+            <div className="space-y-0">
+              <div className="pb-1">
+                <p className="text-sm font-semibold text-foreground">Label do campo</p>
+                <p className="text-xs text-foreground/50 mt-0.5">Título e descrição — gap 4px (micro)</p>
+              </div>
+              <div className="pt-1 pb-4">
+                <div className="border border-border rounded px-3 py-2 text-sm text-foreground/60">Valor do campo</div>
+              </div>
+              <div className="pt-4 pb-1 border-t border-border">
+                <p className="text-sm font-semibold text-foreground">Segundo campo</p>
+                <p className="text-xs text-foreground/50">Separado do anterior — gap 16px (componente)</p>
+              </div>
+              <div className="pt-1">
+                <div className="border border-border rounded px-3 py-2 text-sm text-foreground/60">Segundo valor</div>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <p className="text-xs font-semibold text-red-600 dark:text-red-400 uppercase tracking-wide mb-5">✗ Problema — espaçamentos iguais</p>
+            <div className="space-y-3">
+              <p className="text-sm font-semibold text-foreground">Label do campo</p>
+              <div className="border border-border rounded px-3 py-2 text-sm text-foreground/60">Valor do campo</div>
+              <p className="text-sm font-semibold text-foreground">Segundo campo</p>
+              <div className="border border-border rounded px-3 py-2 text-sm text-foreground/60">Segundo valor</div>
+            </div>
+            <p className="text-xs text-foreground/40 mt-4">
+              Gap igual entre label→input e entre campos diferentes cria ambiguidade: qual label pertence a qual input?
+            </p>
+          </Card>
+        </div>
+
+        <UsageBox
+          use={[
+            'Gap 4–8px entre label e input (elementos do mesmo campo)',
+            'Gap 16–24px entre campos diferentes em um formulário',
+            'Gap 32–48px entre seções de formulário (dados pessoais vs. endereço)',
+            'Mesmo espaçamento em todos os itens de uma lista repetida',
+          ]}
+          avoid={[
+            'Mesmo gap entre elementos relacionados e não relacionados',
+            'Valores arbitrários fora da escala de tokens (ex: 13px, 22px)',
+            'Aumentar espaçamento em vez de adicionar um separator ou divider',
+            'Espaçamento de Seção (80px+) dentro de componentes compactos',
+          ]}
+        />
+      </section>
+
       {/* Como Usar */}
-      <section>
+      <section className="mb-16">
         <h2 className="text-3xl font-bold mb-8 text-foreground">Como Usar</h2>
         <Card className="p-6">
           <div className="space-y-6">
             <div>
               <h3 className="font-semibold text-foreground mb-2">Em CSS</h3>
-              <pre className="bg-card text-foreground p-4 rounded-lg overflow-x-auto text-sm">
+              <pre className="bg-muted/40 border border-border text-foreground p-4 rounded-lg overflow-x-auto text-sm">
                 <code>{`.card {
-  padding: var(--space-4);      /* 16px */
-  margin-bottom: var(--space-6); /* 24px */
-  gap: var(--space-3);           /* 12px */
+  padding: var(--space-6);       /* 24px — grupo componente */
+  margin-bottom: var(--space-8); /* 32px — grupo layout */
+  gap: var(--space-3);           /* 12px — gap interno */
 }`}</code>
               </pre>
             </div>
 
             <div>
               <h3 className="font-semibold text-foreground mb-2">Em Tailwind CSS</h3>
-              <pre className="bg-card text-foreground p-4 rounded-lg overflow-x-auto text-sm">
-                <code>{`{/* Os tokens de espaçamento mapeiam para a escala Tailwind */}
-<div className="p-4 mb-6 gap-3">
+              <pre className="bg-muted/40 border border-border text-foreground p-4 rounded-lg overflow-x-auto text-sm">
+                <code>{`{/* Tokens mapeiam diretamente para a escala Tailwind */}
+<div className="p-6 mb-8 gap-3">
+  {/* p-6 = --space-6 = 24px, mb-8 = --space-8 = 32px */}
   Conteúdo com spacing tokens
 </div>
 
-{/* Usando variáveis CSS diretamente */}
+{/* Via CSS variable para valores fora do padrão Tailwind */}
 <div style={{ padding: 'var(--space-4)' }}>
-  Padding customizado
+  Padding via token CSS
 </div>`}</code>
               </pre>
             </div>
+          </div>
+        </Card>
+      </section>
 
-            <div>
-              <h3 className="font-semibold text-foreground mb-2">Boas Práticas</h3>
-              <ul className="list-disc list-inside space-y-2 text-foreground/60">
-                <li>Use múltiplos de 4px para manter consistência visual</li>
-                <li>Prefira tokens ao invés de valores arbitrários</li>
-                <li>Use espaçamentos menores (2-4) para elementos internos</li>
-                <li>Use espaçamentos maiores (6-12) para seções e blocos</li>
-                <li>Use espaçamentos grandes (16-32) para layout e áreas principais</li>
-              </ul>
-            </div>
+      {/* Boas Práticas */}
+      <section>
+        <h2 className="text-3xl font-bold mb-8 text-foreground">Boas Práticas</h2>
+        <UsageBox
+          use={[
+            'Tokens da escala — nunca valores arbitrários como 13px ou 22px',
+            'Escala semântica: Micro dentro de componentes, Layout entre blocos',
+            'rem em CSS — respeita preferências de acessibilidade do usuário',
+            'Espaçamento menor entre elementos relacionados (Gestalt Proximity)',
+            'Consistir o mesmo token em repetições — listas, tabelas, grades',
+            'Aumentar espaçamento gradualmente conforme o contexto ficar mais amplo',
+          ]}
+          avoid={[
+            'Espaçamento de Seção (80px+) dentro de componentes compactos',
+            'Valores negativos para overlap — use position/translate instead',
+            'Gap igual entre elementos relacionados e não relacionados',
+            'Misturar px e rem manualmente — use tokens como base',
+            'Usar margin para criar gap em flex/grid — prefira a prop gap',
+            'Espaçamento único em layouts responsive — use clamp() ou tokens adaptáveis',
+          ]}
+        />
+        <Card className="p-5 mt-4">
+          <p className="text-sm font-semibold text-foreground mb-3">Regras de ouro (padrão IBM Carbon)</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {[
+              { rule: 'Base 4px', desc: 'Todos os valores são múltiplos de 4. Nunca use valores que não estejam na escala.' },
+              { rule: 'Contexto', desc: 'Identifique o grupo semântico antes do valor: Micro, Componente, Layout ou Seção.' },
+              { rule: 'Proximity', desc: 'Menos espaço = mais relacionado. A distância comunica estrutura sem bordas.' },
+            ].map(({ rule, desc }) => (
+              <div key={rule} className="bg-muted/40 border border-border rounded-lg p-3">
+                <p className="text-xs font-semibold text-primary mb-1">{rule}</p>
+                <p className="text-xs text-foreground/60">{desc}</p>
+              </div>
+            ))}
           </div>
         </Card>
       </section>
