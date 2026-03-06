@@ -8,6 +8,23 @@ Biblioteca de componentes React com Tailwind CSS, Radix UI e Lucide icons.
 npm install @confraria/ui
 ```
 
+### Componentes Adicionais com shadcn/ui
+
+A biblioteca `@confraria/ui` fornece os componentes essenciais do design system. Para componentes adicionais que não estão incluídos (como Tooltip, Popover, Calendar, etc.), você pode usar o **shadcn/ui** diretamente no seu projeto:
+
+```bash
+# Instalar shadcn CLI
+npx shadcn@latest init
+
+# Adicionar componentes conforme necessário
+npx shadcn@latest add tooltip
+npx shadcn@latest add popover
+npx shadcn@latest add calendar
+npx shadcn@latest add form
+```
+
+Isso adiciona os componentes diretamente ao seu projeto, permitindo que você customize conforme necessário enquanto mantém consistência com o design system.
+
 ## ⚙️ Configuração Inicial
 
 ### 1. Importar estilos CSS
@@ -134,6 +151,52 @@ function MeuDialog() {
 }
 ```
 
+### Combinando @confraria/ui com shadcn/ui
+
+Você pode usar componentes de ambas as bibliotecas no mesmo projeto:
+
+```tsx
+// Componentes do @confraria/ui
+import { Button, Alert, StatCard } from '@confraria/ui'
+
+// Componentes adicionados via shadcn CLI (vivem no seu projeto)
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { Calendar } from '@/components/ui/calendar'
+
+function Dashboard() {
+  return (
+    <div>
+      {/* Componente da lib */}
+      <Alert variant="info" title="Dica">
+        Use o calendário abaixo para agendar
+      </Alert>
+
+      {/* Componente do shadcn adicionado localmente */}
+      <Calendar mode="single" />
+
+      {/* Combinando ambos */}
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button>Ver estatísticas</Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            Clique para ver detalhes
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+
+      {/* Componente customizado da lib */}
+      <StatCard 
+        label="Total" 
+        value={1234} 
+        trend={{ value: 12, isPositive: true }}
+      />
+    </div>
+  )
+}
+```
+
 ## 🎨 Componentes Disponíveis
 
 ### UI Base (shadcn/ui)
@@ -226,6 +289,20 @@ function MeuBotao({ isActive }: { isActive: boolean }) {
 - **Tailwind CSS** configurado no projeto
 - **lucide-react** (para ícones nos componentes Confraria)
 
+## 🔄 @confraria/ui vs shadcn/ui
+
+### Use `@confraria/ui` quando:
+- O componente já está disponível na biblioteca (Button, Card, Alert, StatCard, etc.)
+- Você precisa dos componentes customizados da Confraria (Alert, StatCard, EmptyState, etc.)
+- Quer garantir consistência com o design system core
+
+### Use `shadcn/ui add <componente>` quando:
+- Precisa de componentes não incluídos na lib (Tooltip, Calendar, Form, Popover, Sheet, etc.)
+- Quer customizar profundamente um componente específico para o seu projeto
+- Precisa de um componente experimental ou recém-lançado do shadcn
+
+**Importante:** Ambos usam as mesmas CSS variables e são totalmente compatíveis entre si!
+
 ## 🎨 Temas e CSS Variables
 
 Os componentes usam CSS variables para temas. Você pode customizar no seu `globals.css`:
@@ -246,6 +323,8 @@ Os componentes usam CSS variables para temas. Você pode customizar no seu `glob
 3. **Use TypeScript** para aproveitar a tipagem automática
 4. **Combine com lucide-react** para ícones consistentes
 5. **Use a função `cn()`** para classes condicionais
+6. **Componentes faltantes?** Use `npx shadcn@latest add <componente>` para adicionar componentes que não estão na lib
+7. **Mantenha a consistência** - Os componentes shadcn/ui usam as mesmas CSS variables do design system
 
 ## 📖 Documentação Completa
 
@@ -272,6 +351,10 @@ Acesse `http://localhost:3000/docs` para ver a documentação interativa.
 
 ### TypeScript reclama
 ✅ O pacote já exporta tipos, mas certifique-se de ter `@types/react` instalado
+
+### Preciso de um componente que não está na lib
+✅ Use `npx shadcn@latest add <componente>` para adicionar componentes adicionais do shadcn/ui  
+✅ Os componentes shadcn funcionam perfeitamente com os componentes da lib
 
 ---
 
