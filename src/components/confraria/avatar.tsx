@@ -37,7 +37,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
       <div
         ref={ref}
         className={cn(
-          'inline-flex items-center justify-center font-medium bg-gradient-to-br from-slate-200 to-slate-300 text-slate-700',
+          'inline-flex items-center justify-center font-medium bg-gradient-to-br from-primary/20 to-primary/35 text-foreground',
           sizeMap[size],
           variant === 'circle' ? 'rounded-full' : 'rounded-md',
           className

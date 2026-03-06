@@ -16,19 +16,19 @@ function CodeBlock({ code }: { code: string }) {
   }
 
   return (
-    <div className="bg-slate-950 rounded-lg p-4 relative">
+    <div className="bg-card rounded-lg p-4 relative">
       <button
         onClick={handleCopy}
-        className="absolute top-2 right-2 p-2 hover:bg-slate-800 rounded-lg transition-colors"
+        className="absolute top-2 right-2 p-2 hover:bg-accent rounded-lg transition-colors"
         title="Copy code"
       >
         {copied ? (
           <Check className="h-4 w-4 text-green-500" />
         ) : (
-          <Copy className="h-4 w-4 text-slate-400" />
+          <Copy className="h-4 w-4 text-foreground/50" />
         )}
       </button>
-      <pre className="text-slate-100 text-sm overflow-x-auto">
+      <pre className="text-foreground text-sm overflow-x-auto">
         <code>{code}</code>
       </pre>
     </div>
@@ -40,15 +40,15 @@ export default function StatCardPage() {
     <div className="max-w-5xl mx-auto py-12 px-4">
       <div className="mb-12">
         <Badge className="mb-4">Componentes Confraria</Badge>
-        <h1 className="text-4xl font-bold mb-3 text-slate-900">StatCard</h1>
-        <p className="text-lg text-slate-600 max-w-2xl">
+        <h1 className="text-4xl font-bold mb-3 text-foreground">StatCard</h1>
+        <p className="text-lg text-foreground/60 max-w-2xl">
           Card para exibir estatísticas com ícone, valor e tendência.
         </p>
       </div>
 
       {/* Exemplos Básicos */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Exemplos Básicos</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Exemplos Básicos</h2>
         <div className="grid md:grid-cols-2 gap-6 mb-6">
           <StatCard
             icon={Users}
@@ -91,7 +91,7 @@ export default function StatCardPage() {
 
       {/* Cores */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Cores</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Cores</h2>
         <div className="grid md:grid-cols-5 gap-4 mb-6">
           <StatCard icon={Users} label="Blue" value="1,234" color="blue" />
           <StatCard icon={Users} label="Green" value="5,678" color="green" />
@@ -110,7 +110,7 @@ export default function StatCardPage() {
 
       {/* Props */}
       <div>
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Props</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Props</h2>
         <Card className="p-6 overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -122,34 +122,34 @@ export default function StatCardPage() {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">label</td>
+              <tr className="border-b hover:bg-card/50">
+                <td className="py-3 px-4 font-mono text-primary">label</td>
                 <td className="py-3 px-4">string</td>
                 <td className="py-3 px-4">-</td>
                 <td className="py-3 px-4">Rótulo da estatística</td>
               </tr>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">value</td>
+              <tr className="border-b hover:bg-card/50">
+                <td className="py-3 px-4 font-mono text-primary">value</td>
                 <td className="py-3 px-4">string | number</td>
                 <td className="py-3 px-4">-</td>
                 <td className="py-3 px-4">Valor a exibir</td>
               </tr>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">icon</td>
+              <tr className="border-b hover:bg-card/50">
+                <td className="py-3 px-4 font-mono text-primary">icon</td>
                 <td className="py-3 px-4">LucideIcon</td>
                 <td className="py-3 px-4">-</td>
                 <td className="py-3 px-4">Ícone do card</td>
               </tr>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">trend</td>
+              <tr className="border-b hover:bg-card/50">
+                <td className="py-3 px-4 font-mono text-primary">trend</td>
                 <td className="py-3 px-4">object</td>
                 <td className="py-3 px-4">-</td>
                 <td className="py-3 px-4">
                   {'{ value: number, isPositive: boolean }'}
                 </td>
               </tr>
-              <tr className="hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">color</td>
+              <tr className="hover:bg-card/50">
+                <td className="py-3 px-4 font-mono text-primary">color</td>
                 <td className="py-3 px-4">string</td>
                 <td className="py-3 px-4">&quot;blue&quot;</td>
                 <td className="py-3 px-4">

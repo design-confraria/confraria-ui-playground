@@ -17,19 +17,19 @@ function CodeBlock({ code }: { code: string }) {
   }
 
   return (
-    <div className="bg-slate-950 rounded-lg p-4 relative">
+    <div className="bg-card rounded-lg p-4 relative">
       <button
         onClick={handleCopy}
-        className="absolute top-2 right-2 p-2 hover:bg-slate-800 rounded-lg transition-colors"
+        className="absolute top-2 right-2 p-2 hover:bg-accent rounded-lg transition-colors"
         title="Copy code"
       >
         {copied ? (
           <Check className="h-4 w-4 text-green-500" />
         ) : (
-          <Copy className="h-4 w-4 text-slate-400" />
+          <Copy className="h-4 w-4 text-foreground/50" />
         )}
       </button>
-      <pre className="text-slate-100 text-sm overflow-x-auto">
+      <pre className="text-foreground text-sm overflow-x-auto">
         <code>{code}</code>
       </pre>
     </div>
@@ -41,8 +41,8 @@ export default function InputPage() {
     <div className="max-w-5xl mx-auto py-12 px-4">
       <div className="mb-12">
         <Badge className="mb-4">Componentes Base</Badge>
-        <h1 className="text-4xl font-bold mb-3 text-slate-900">Input</h1>
-        <p className="text-lg text-slate-600 max-w-2xl">
+        <h1 className="text-4xl font-bold mb-3 text-foreground">Input</h1>
+        <p className="text-lg text-foreground/60 max-w-2xl">
           Componente de input para formulários. Suporta todos os tipos HTML nativos
           com estilos consistentes.
         </p>
@@ -50,7 +50,7 @@ export default function InputPage() {
 
       {/* Input Básico */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Input Básico</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Input Básico</h2>
         <Card className="p-6">
           <div className="max-w-sm space-y-4 mb-6">
             <Input placeholder="Digite algo..." />
@@ -61,7 +61,7 @@ export default function InputPage() {
 
       {/* Com Label */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Com Label</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Com Label</h2>
         <Card className="p-6">
           <div className="max-w-sm space-y-4 mb-6">
             <div className="space-y-2">
@@ -84,7 +84,7 @@ export default function InputPage() {
 
       {/* Tipos */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Tipos</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Tipos</h2>
         <Card className="p-6">
           <div className="max-w-sm space-y-4 mb-6">
             <div className="space-y-2">
@@ -120,7 +120,7 @@ export default function InputPage() {
 
       {/* Estados */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Estados</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Estados</h2>
         <Card className="p-6">
           <div className="max-w-sm space-y-4 mb-6">
             <div className="space-y-2">
@@ -146,7 +146,7 @@ export default function InputPage() {
 
       {/* Props */}
       <div>
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Props</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Props</h2>
         <Card className="p-6 overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -158,26 +158,26 @@ export default function InputPage() {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">type</td>
+              <tr className="border-b hover:bg-card/50">
+                <td className="py-3 px-4 font-mono text-primary">type</td>
                 <td className="py-3 px-4">string</td>
                 <td className="py-3 px-4">&quot;text&quot;</td>
                 <td className="py-3 px-4">Tipo do input HTML</td>
               </tr>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">placeholder</td>
+              <tr className="border-b hover:bg-card/50">
+                <td className="py-3 px-4 font-mono text-primary">placeholder</td>
                 <td className="py-3 px-4">string</td>
                 <td className="py-3 px-4">-</td>
                 <td className="py-3 px-4">Placeholder do input</td>
               </tr>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">disabled</td>
+              <tr className="border-b hover:bg-card/50">
+                <td className="py-3 px-4 font-mono text-primary">disabled</td>
                 <td className="py-3 px-4">boolean</td>
                 <td className="py-3 px-4">false</td>
                 <td className="py-3 px-4">Desabilita o input</td>
               </tr>
-              <tr className="hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">aria-invalid</td>
+              <tr className="hover:bg-card/50">
+                <td className="py-3 px-4 font-mono text-primary">aria-invalid</td>
                 <td className="py-3 px-4">boolean</td>
                 <td className="py-3 px-4">false</td>
                 <td className="py-3 px-4">Marca o campo como inválido com estilo de erro</td>

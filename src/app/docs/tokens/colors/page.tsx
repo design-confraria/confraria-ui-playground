@@ -114,8 +114,8 @@ export default function ColorsPage() {
     <div className="max-w-5xl mx-auto py-12 px-4">
       <div className="mb-12">
         <Badge className="mb-4">Design Tokens</Badge>
-        <h1 className="text-4xl font-bold mb-3 text-slate-900">Cores</h1>
-        <p className="text-lg text-slate-600 max-w-2xl">
+        <h1 className="text-4xl font-bold mb-3 text-foreground">Cores</h1>
+        <p className="text-lg text-foreground/60 max-w-2xl">
           Paleta de cores do Confraria Design System. Baseada em Tailwind CSS com extensões
           customizadas.
         </p>
@@ -125,7 +125,7 @@ export default function ColorsPage() {
       <div className="space-y-12">
         {colors.map((colorGroup) => (
           <div key={colorGroup.name}>
-            <h2 className="text-2xl font-bold mb-6 text-slate-900">
+            <h2 className="text-2xl font-bold mb-6 text-foreground">
               {colorGroup.name}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
@@ -136,16 +136,16 @@ export default function ColorsPage() {
                     style={{ backgroundColor: color.hex }}
                   >
                     {color.primary && (
-                      <Badge className="absolute top-2 right-2 bg-white text-slate-900">
+                      <Badge className="absolute top-2 right-2 bg-white text-foreground">
                         Primary
                       </Badge>
                     )}
                   </div>
                   <div className="p-3">
-                    <p className="font-semibold text-sm text-slate-900">
+                    <p className="font-semibold text-sm text-foreground">
                       {color.shade}
                     </p>
-                    <p className="text-xs text-slate-600 font-mono">
+                    <p className="text-xs text-foreground/60 font-mono">
                       {color.hex}
                     </p>
                   </div>
@@ -158,12 +158,12 @@ export default function ColorsPage() {
 
       {/* Uso */}
       <div className="mt-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Como Usar</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Como Usar</h2>
         <Card className="p-6">
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold text-slate-900 mb-2">Em Tailwind CSS</h3>
-              <pre className="bg-slate-950 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">
+              <h3 className="font-semibold text-foreground mb-2">Em Tailwind CSS</h3>
+              <pre className="bg-card text-foreground p-4 rounded-lg overflow-x-auto text-sm">
                 <code>{`<div className="bg-blue-500 text-white">
   Heading
 </div>
@@ -175,8 +175,8 @@ export default function ColorsPage() {
             </div>
 
             <div>
-              <h3 className="font-semibold text-slate-900 mb-2">Em CSS/CSS-in-JS</h3>
-              <pre className="bg-slate-950 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">
+              <h3 className="font-semibold text-foreground mb-2">Em CSS/CSS-in-JS</h3>
+              <pre className="bg-card text-foreground p-4 rounded-lg overflow-x-auto text-sm">
                 <code>{`.button {
   background-color: var(--color-blue-500);
   color: var(--color-slate-50);
@@ -189,15 +189,15 @@ export default function ColorsPage() {
 
       {/* Acessibilidade */}
       <div className="mt-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Acessibilidade</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Acessibilidade</h2>
         <Card className="p-6 space-y-4">
           <div>
-            <h3 className="font-semibold text-slate-900 mb-2">Contraste</h3>
-            <p className="text-slate-600 mb-4">
+            <h3 className="font-semibold text-foreground mb-2">Contraste</h3>
+            <p className="text-foreground/60 mb-4">
               Todas as cores foram selecionadas para passar nos testes de contraste WCAG AA.
               Recomendamos:
             </p>
-            <ul className="list-disc list-inside space-y-2 text-slate-600">
+            <ul className="list-disc list-inside space-y-2 text-foreground/60">
               <li>Text claro (50-100): use com backgrounds escuros (700-900)</li>
               <li>Text escuro (800-900): use com backgrounds claros (50-100)</li>
               <li>Text padrão: use tons médios (400-600) com backgrounds padrão</li>

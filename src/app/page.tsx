@@ -3,6 +3,10 @@ import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { ArrowRight, Palette, Zap, Shield } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
+import ThemeToggle from '@/components/ui/theme-toggle'
+import WhiteConfraLogo from '@/images/White_Confra_Logotipo.svg'
+import BlackConfraLogo from '@/images/Black_Confra_Logotipo.svg'
 
 const features = [
   {
@@ -36,7 +40,7 @@ const sections = [
   {
     title: 'Design Tokens',
     description: 'Cores, tipografia e espaçamento padronizados',
-    href: '/docs/tokens/colors',
+    href: '/docs/tokens',
   },
   {
     title: 'Ícones',
@@ -47,7 +51,28 @@ const sections = [
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-screen">
+    <main className="flex flex-col min-h-screen bg-background text-foreground">
+      {/* Header with Theme Toggle */}
+      <header className="sticky top-0 z-40 border-b border-border bg-card">
+        <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
+          <Link href="/" className="inline-flex items-center">
+            <Image
+              src={WhiteConfraLogo}
+              alt="Confraria"
+              className="block w-[128px] h-auto dark:hidden"
+              priority
+            />
+            <Image
+              src={BlackConfraLogo}
+              alt="Confraria"
+              className="hidden w-[128px] h-auto dark:block"
+              priority
+            />
+          </Link>
+          <ThemeToggle />
+        </div>
+      </header>
+
       {/* Hero Section */}
       <section className="flex-1 flex items-center justify-center py-20 px-4">
         <div className="max-w-4xl w-full text-center">
@@ -56,10 +81,10 @@ export default function Home() {
               Design System v1.0
             </Badge>
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-slate-900">
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-foreground">
             Confraria Design System
           </h1>
-          <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-foreground/60 mb-8 max-w-2xl mx-auto">
             Uma biblioteca completa de componentes React construída com shadcn/ui, Radix UI
             e Lucide icons. Pronta para produção com suporte total a acessibilidade.
           </p>
@@ -80,9 +105,9 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 bg-slate-50">
+      <section className="py-20 px-4 bg-card/50">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12 text-slate-900">
+          <h2 className="text-3xl font-bold text-center mb-12 text-foreground">
             Características Principais
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -90,13 +115,13 @@ export default function Home() {
               const Icon = feature.icon
               return (
                 <Card key={feature.title} className="p-6">
-                  <div className="mb-4 p-3 bg-blue-50 rounded-lg w-fit">
-                    <Icon className="h-6 w-6 text-blue-600" />
+                  <div className="mb-4 p-3 bg-primary/15 rounded-lg w-fit">
+                    <Icon className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="font-semibold text-lg mb-2 text-slate-900">
+                  <h3 className="font-semibold text-lg mb-2 text-foreground">
                     {feature.title}
                   </h3>
-                  <p className="text-slate-600">{feature.description}</p>
+                  <p className="text-foreground/70">{feature.description}</p>
                 </Card>
               )
             })}
@@ -105,20 +130,20 @@ export default function Home() {
       </section>
 
       {/* Sections */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 bg-background">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-slate-900">
+          <h2 className="text-3xl font-bold mb-12 text-foreground">
             Documentação
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
             {sections.map((section) => (
               <Link key={section.href} href={section.href}>
                 <Card className="p-6 h-full hover:shadow-lg transition-shadow cursor-pointer">
-                  <h3 className="font-semibold text-lg mb-2 text-slate-900">
+                  <h3 className="font-semibold text-lg mb-2 text-foreground">
                     {section.title}
                   </h3>
-                  <p className="text-slate-600 mb-4">{section.description}</p>
-                  <div className="flex items-center text-blue-600 font-medium">
+                  <p className="text-foreground/70 mb-4">{section.description}</p>
+                  <div className="flex items-center text-primary font-medium">
                     Explorar <ArrowRight className="ml-2 h-4 w-4" />
                   </div>
                 </Card>
@@ -129,9 +154,9 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t bg-slate-50 py-8 px-4">
+      <footer className="border-t border-border bg-card py-8 px-4">
         <div className="max-w-5xl mx-auto text-center">
-          <p className="text-slate-600 text-sm">
+          <p className="text-foreground/60 text-sm">
             Confraria Design System • Construído com React, TypeScript, Tailwind CSS, shadcn/ui
             e Radix UI
           </p>

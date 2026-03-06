@@ -15,11 +15,11 @@ export interface StatCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const colorMap = {
-  blue: 'bg-blue-50 text-blue-700',
-  green: 'bg-green-50 text-green-700',
-  red: 'bg-red-50 text-red-700',
-  amber: 'bg-amber-50 text-amber-700',
-  purple: 'bg-purple-50 text-purple-700',
+  blue: 'bg-primary/15 text-primary',
+  green: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300',
+  red: 'bg-red-500/15 text-red-700 dark:text-red-300',
+  amber: 'bg-amber-500/15 text-amber-700 dark:text-amber-300',
+  purple: 'bg-violet-500/15 text-violet-700 dark:text-violet-300',
 }
 
 export const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
@@ -35,14 +35,16 @@ export const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
       >
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <p className="text-sm text-slate-600 mb-2">{label}</p>
+            <p className="text-sm text-foreground/60 mb-2">{label}</p>
             <div className="flex items-end gap-2">
-              <h3 className="text-2xl font-bold text-slate-900">{value}</h3>
+              <h3 className="text-2xl font-bold text-foreground">{value}</h3>
               {trend && (
                 <div
                   className={cn(
                     'flex items-center gap-0.5 text-xs font-medium mb-1',
-                    trend.isPositive ? 'text-green-600' : 'text-red-600'
+                    trend.isPositive
+                      ? 'text-emerald-700 dark:text-emerald-300'
+                      : 'text-red-700 dark:text-red-300'
                   )}
                 >
                   {trend.isPositive ? (

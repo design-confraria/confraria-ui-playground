@@ -96,8 +96,8 @@ const typographyStyles = [
 
 const fontFamilies = [
   {
-    name: 'Geist Sans',
-    variable: 'var(--font-geist-sans)',
+    name: 'DM Sans',
+    variable: 'var(--font-dm-sans)',
     usage: 'Tipografia padrão do sistema, UI components',
     example: 'The quick brown fox jumps over the lazy dog',
   },
@@ -115,37 +115,37 @@ export default function TypographyPage() {
     <div className="max-w-6xl mx-auto py-12 px-4">
       <div className="mb-12">
         <Badge className="mb-4">Design Tokens</Badge>
-        <h1 className="text-5xl font-bold mb-3 text-slate-900">Tipografia</h1>
-        <p className="text-lg text-slate-600 max-w-2xl">
-          Sistema de tipografia baseado em Geist Font Family. Escalas harmônicas
+        <h1 className="text-5xl font-bold mb-3 text-foreground">Tipografia</h1>
+        <p className="text-lg text-foreground/60 max-w-2xl">
+          Sistema de tipografia baseado em DM Sans Font Family. Escalas harmônicas
           com tokens reutilizáveis para consistência visual.
         </p>
       </div>
 
       {/* Famílias de Fonte */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold mb-8 text-slate-900">Famílias de Fonte</h2>
+        <h2 className="text-3xl font-bold mb-8 text-foreground">Famílias de Fonte</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {fontFamilies.map((font) => (
             <Card key={font.name} className="p-6">
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">
+              <h3 className="text-xl font-semibold text-foreground mb-2">
                 {font.name}
               </h3>
               <div className="space-y-3">
                 <div>
-                  <label className="text-sm text-slate-600 block mb-1">Variable</label>
-                  <code className="bg-slate-100 text-slate-900 px-3 py-2 rounded block text-sm font-mono">
+                  <label className="text-sm text-foreground/60 block mb-1">Variable</label>
+                  <code className="bg-accent/50 text-foreground px-3 py-2 rounded block text-sm font-mono">
                     {font.variable}
                   </code>
                 </div>
                 <div>
-                  <label className="text-sm text-slate-600 block mb-1">Uso</label>
-                  <p className="text-slate-700">{font.usage}</p>
+                  <label className="text-sm text-foreground/60 block mb-1">Uso</label>
+                  <p className="text-foreground/70">{font.usage}</p>
                 </div>
                 <div>
-                  <label className="text-sm text-slate-600 block mb-1">Exemplo</label>
+                  <label className="text-sm text-foreground/60 block mb-1">Exemplo</label>
                   <div
-                    className={`${font.mono ? 'font-mono' : ''} text-slate-900 p-3 bg-slate-50 rounded border border-slate-200`}
+                    className={`${font.mono ? 'font-mono' : ''} text-foreground p-3 bg-card/50 rounded border border-border`}
                   >
                     {font.example}
                   </div>
@@ -158,7 +158,7 @@ export default function TypographyPage() {
 
       {/* Estilos de Tipografia */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold mb-8 text-slate-900">Estilos de Tipografia</h2>
+        <h2 className="text-3xl font-bold mb-8 text-foreground">Estilos de Tipografia</h2>
         <div className="space-y-8">
           {typographyStyles.map((style) => (
             <Card key={style.name} className="p-8">
@@ -181,38 +181,38 @@ export default function TypographyPage() {
                     <Badge variant="outline" className="mb-2">
                       {style.name}
                     </Badge>
-                    <h3 className="text-lg font-semibold text-slate-900">
+                    <h3 className="text-lg font-semibold text-foreground">
                       &lt;{style.element}&gt;
                     </h3>
-                    <p className="text-slate-600 text-sm mt-2">{style.description}</p>
+                    <p className="text-foreground/60 text-sm mt-2">{style.description}</p>
                   </div>
 
-                  <div className="space-y-2 bg-slate-50 p-4 rounded border border-slate-200">
+                  <div className="space-y-2 bg-card/50 p-4 rounded border border-border">
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <span className="text-slate-600 block mb-1">Font Size</span>
-                        <code className="text-slate-900 font-semibold">
+                        <span className="text-foreground/60 block mb-1">Font Size</span>
+                        <code className="text-foreground font-semibold">
                           {style.tokens.fontSize.split(' / ')[1]}
                         </code>
-                        <span className="text-xs text-slate-500 block">
+                        <span className="text-xs text-foreground/50 block">
                           {style.tokens.fontSize.split(' / ')[0]}
                         </span>
                       </div>
                       <div>
-                        <span className="text-slate-600 block mb-1">Line Height</span>
-                        <code className="text-slate-900 font-semibold">
+                        <span className="text-foreground/60 block mb-1">Line Height</span>
+                        <code className="text-foreground font-semibold">
                           {style.tokens.lineHeight.split(' / ')[1]}
                         </code>
-                        <span className="text-xs text-slate-500 block">
+                        <span className="text-xs text-foreground/50 block">
                           {style.tokens.lineHeight.split(' / ')[0]}
                         </span>
                       </div>
                       <div>
-                        <span className="text-slate-600 block mb-1">Font Weight</span>
-                        <code className="text-slate-900 font-semibold">
+                        <span className="text-foreground/60 block mb-1">Font Weight</span>
+                        <code className="text-foreground font-semibold">
                           {style.tokens.fontWeight.split(' / ')[1]}
                         </code>
-                        <span className="text-xs text-slate-500 block">
+                        <span className="text-xs text-foreground/50 block">
                           {style.tokens.fontWeight.split(' / ')[0]}
                         </span>
                       </div>
@@ -227,13 +227,13 @@ export default function TypographyPage() {
 
       {/* Como Usar */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold mb-8 text-slate-900">Como Usar</h2>
+        <h2 className="text-3xl font-bold mb-8 text-foreground">Como Usar</h2>
         <div className="space-y-6">
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-slate-900 mb-4">
+            <h3 className="text-lg font-semibold text-foreground mb-4">
               Em HTML/JSX
             </h3>
-            <pre className="bg-slate-950 text-slate-100 p-4 rounded overflow-x-auto text-sm">
+            <pre className="bg-card text-foreground p-4 rounded overflow-x-auto text-sm">
               <code>{`<h1>Título Principal</h1>
 <h2>Subtítulo</h2>
 <p>Parágrafo de conteúdo principal</p>
@@ -245,10 +245,10 @@ export default function TypographyPage() {
           </Card>
 
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-slate-900 mb-4">
+            <h3 className="text-lg font-semibold text-foreground mb-4">
               CSS Variables
             </h3>
-            <pre className="bg-slate-950 text-slate-100 p-4 rounded overflow-x-auto text-sm">
+            <pre className="bg-card text-foreground p-4 rounded overflow-x-auto text-sm">
               <code>{`.custom-heading {
   font-size: var(--font-size-4xl);
   line-height: var(--line-height-tight);
@@ -259,7 +259,7 @@ export default function TypographyPage() {
 .body-text {
   font-size: var(--font-size-base);
   line-height: var(--line-height-relaxed);
-  font-family: var(--font-geist-sans);
+  font-family: var(--font-dm-sans);
 }`}</code>
             </pre>
           </Card>
@@ -268,29 +268,29 @@ export default function TypographyPage() {
 
       {/* Boas Práticas */}
       <section>
-        <h2 className="text-3xl font-bold mb-8 text-slate-900">Boas Práticas</h2>
+        <h2 className="text-3xl font-bold mb-8 text-foreground">Boas Práticas</h2>
         <Card className="p-6 space-y-4">
           <div>
-            <h3 className="font-semibold text-slate-900 mb-2">✓ Use os estilos nativos</h3>
-            <p className="text-slate-600 text-sm">
+            <h3 className="font-semibold text-foreground mb-2">✓ Use os estilos nativos</h3>
+            <p className="text-foreground/60 text-sm">
               Prefira &lt;h1&gt;, &lt;h2&gt;, etc. aos invés de divs. Melhor semântica e SEO.
             </p>
           </div>
           <div>
-            <h3 className="font-semibold text-slate-900 mb-2">✓ Respeite a hierarquia</h3>
-            <p className="text-slate-600 text-sm">
+            <h3 className="font-semibold text-foreground mb-2">✓ Respeite a hierarquia</h3>
+            <p className="text-foreground/60 text-sm">
               Use h1 para o título principal, h2 para seções, h3 para subsections, etc.
             </p>
           </div>
           <div>
-            <h3 className="font-semibold text-slate-900 mb-2">✓ Contraste adequado</h3>
-            <p className="text-slate-600 text-sm">
+            <h3 className="font-semibold text-foreground mb-2">✓ Contraste adequado</h3>
+            <p className="text-foreground/60 text-sm">
               Todos os estilos passam em testes WCAG AA. Mantenha contraste ao sobrescrever cores.
             </p>
           </div>
           <div>
-            <h3 className="font-semibold text-slate-900 mb-2">✓ Line-height para legibilidade</h3>
-            <p className="text-slate-600 text-sm">
+            <h3 className="font-semibold text-foreground mb-2">✓ Line-height para legibilidade</h3>
+            <p className="text-foreground/60 text-sm">
               Não modifique line-height padrão. Foram calibrados para máxima legibilidade.
             </p>
           </div>

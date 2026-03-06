@@ -115,28 +115,28 @@ export default function IconsPage() {
     <div className="max-w-5xl mx-auto py-12 px-4">
       <div className="mb-12">
         <Badge className="mb-4">Recursos</Badge>
-        <h1 className="text-4xl font-bold mb-3 text-slate-900">Ícones Lucide</h1>
-        <p className="text-lg text-slate-600 max-w-2xl">
+        <h1 className="text-4xl font-bold mb-3 text-foreground">Ícones Lucide</h1>
+        <p className="text-lg text-foreground/60 max-w-2xl">
           Biblioteca completa de ícones SVG de alta qualidade. Mais de 1000 ícones disponíveis.
         </p>
       </div>
 
       {/* Tamanhos */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Tamanhos</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Tamanhos</h2>
         <Card className="p-6">
           <div className="flex flex-wrap items-center gap-8">
             {sizeExamples.map(({ size, label }) => (
               <div key={label} className="flex flex-col items-center gap-2">
-                <Home size={size} className="text-slate-600" />
-                <p className="text-xs text-slate-600">
+                <Home size={size} className="text-foreground/60" />
+                <p className="text-xs text-foreground/60">
                   {label} ({size}px)
                 </p>
               </div>
             ))}
           </div>
-          <div className="mt-6 p-4 bg-slate-100 rounded-lg">
-            <pre className="text-sm text-slate-700 overflow-x-auto">
+          <div className="mt-6 p-4 bg-accent/50 rounded-lg">
+            <pre className="text-sm text-foreground/70 overflow-x-auto">
               <code>{`import { Home } from 'lucide-react'
 
 <Home size={16} />
@@ -151,33 +151,33 @@ export default function IconsPage() {
 
       {/* Cores */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Cores</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Cores</h2>
         <Card className="p-6">
           <div className="flex flex-wrap gap-8">
             <div className="flex flex-col items-center gap-2">
-              <Search size={24} className="text-slate-600" />
-              <p className="text-xs text-slate-600">Padrão</p>
+              <Search size={24} className="text-foreground/60" />
+              <p className="text-xs text-foreground/60">Padrão</p>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <Search size={24} className="text-blue-600" />
-              <p className="text-xs text-slate-600">Azul</p>
+              <Search size={24} className="text-primary" />
+              <p className="text-xs text-foreground/60">Azul</p>
             </div>
             <div className="flex flex-col items-center gap-2">
               <Search size={24} className="text-green-600" />
-              <p className="text-xs text-slate-600">Verde</p>
+              <p className="text-xs text-foreground/60">Verde</p>
             </div>
             <div className="flex flex-col items-center gap-2">
               <Search size={24} className="text-red-600" />
-              <p className="text-xs text-slate-600">Vermelho</p>
+              <p className="text-xs text-foreground/60">Vermelho</p>
             </div>
             <div className="flex flex-col items-center gap-2">
               <Search size={24} className="text-amber-600" />
-              <p className="text-xs text-slate-600">Âmbar</p>
+              <p className="text-xs text-foreground/60">Âmbar</p>
             </div>
           </div>
-          <div className="mt-6 p-4 bg-slate-100 rounded-lg">
-            <pre className="text-sm text-slate-700 overflow-x-auto">
-              <code>{`<Search className="text-blue-600" size={24} />
+          <div className="mt-6 p-4 bg-accent/50 rounded-lg">
+            <pre className="text-sm text-foreground/70 overflow-x-auto">
+              <code>{`<Search className="text-primary" size={24} />
 <Search className="text-green-600" size={24} />
 <Search className="text-red-600" size={24} />`}</code>
             </pre>
@@ -189,7 +189,7 @@ export default function IconsPage() {
       <div className="space-y-12">
         {iconCategories.map((category) => (
           <div key={category.name}>
-            <h2 className="text-2xl font-bold mb-6 text-slate-900">
+            <h2 className="text-2xl font-bold mb-6 text-foreground">
               {category.name}
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
@@ -198,11 +198,11 @@ export default function IconsPage() {
                 return (
                   <Card
                     key={item.name}
-                    className="p-4 flex flex-col items-center gap-2 hover:bg-slate-50 transition-colors cursor-pointer"
+                    className="p-4 flex flex-col items-center gap-2 hover:bg-card/50 transition-colors cursor-pointer"
                     title={`import { ${item.name} } from 'lucide-react'`}
                   >
-                    <Icon size={24} className="text-slate-600" />
-                    <p className="text-xs text-center text-slate-600 font-mono">
+                    <Icon size={24} className="text-foreground/60" />
+                    <p className="text-xs text-center text-foreground/60 font-mono">
                       {item.name}
                     </p>
                   </Card>
@@ -215,25 +215,25 @@ export default function IconsPage() {
 
       {/* Como Usar */}
       <div className="mt-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Como Usar</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Como Usar</h2>
         <Card className="p-6 space-y-4">
           <div>
-            <h3 className="font-semibold text-slate-900 mb-2">Instalação</h3>
-            <pre className="bg-slate-950 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm mb-4">
+            <h3 className="font-semibold text-foreground mb-2">Instalação</h3>
+            <pre className="bg-card text-foreground p-4 rounded-lg overflow-x-auto text-sm mb-4">
               <code>{'npm install lucide-react'}</code>
             </pre>
           </div>
 
           <div>
-            <h3 className="font-semibold text-slate-900 mb-2">Importação</h3>
-            <pre className="bg-slate-950 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm mb-4">
+            <h3 className="font-semibold text-foreground mb-2">Importação</h3>
+            <pre className="bg-card text-foreground p-4 rounded-lg overflow-x-auto text-sm mb-4">
               <code>{`import { Home, Settings, Search } from 'lucide-react'
 
 export function MyComponent() {
   return (
     <div>
       <Home size={24} />
-      <Settings className="text-blue-600" />
+      <Settings className="text-primary" />
       <Search strokeWidth={1.5} />
     </div>
   )
@@ -242,21 +242,21 @@ export function MyComponent() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-slate-900 mb-2">Props Comuns</h3>
-            <ul className="space-y-2 text-slate-600">
+            <h3 className="font-semibold text-foreground mb-2">Props Comuns</h3>
+            <ul className="space-y-2 text-foreground/60">
               <li>
-                <code className="bg-slate-100 px-2 py-1 rounded">size</code> - Tamanho do ícone
+                <code className="bg-accent/50 px-2 py-1 rounded">size</code> - Tamanho do ícone
                 (padrão: 24)
               </li>
               <li>
-                <code className="bg-slate-100 px-2 py-1 rounded">color</code> - Cor do ícone
+                <code className="bg-accent/50 px-2 py-1 rounded">color</code> - Cor do ícone
               </li>
               <li>
-                <code className="bg-slate-100 px-2 py-1 rounded">strokeWidth</code> - Largura do
+                <code className="bg-accent/50 px-2 py-1 rounded">strokeWidth</code> - Largura do
                 traço (padrão: 2)
               </li>
               <li>
-                <code className="bg-slate-100 px-2 py-1 rounded">className</code> - Classes Tailwind
+                <code className="bg-accent/50 px-2 py-1 rounded">className</code> - Classes Tailwind
                 CSS
               </li>
             </ul>
@@ -266,14 +266,14 @@ export function MyComponent() {
 
       {/* Mais Informações */}
       <div className="mt-16">
-        <Card className="p-6 bg-blue-50 border-blue-200">
-          <p className="text-slate-700">
+        <Card className="p-6 bg-primary/15 border-primary/30">
+          <p className="text-foreground/70">
             Para uma lista completa de ícones, visite{' '}
             <a
               href="https://lucide.dev"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 font-semibold hover:underline"
+              className="text-primary font-semibold hover:underline"
             >
               lucide.dev
             </a>

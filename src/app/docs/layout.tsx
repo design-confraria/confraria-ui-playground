@@ -2,10 +2,14 @@
 
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
+import ThemeToggle from '@/components/ui/theme-toggle'
+import WhiteConfraLogo from '@/images/White_Confra_Logotipo.svg'
+import BlackConfraLogo from '@/images/Black_Confra_Logotipo.svg'
 
 const navigation = [
   {
@@ -55,19 +59,30 @@ export default function DocsLayout({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-background">
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 w-64 transform bg-white border-r border-slate-200 transition-transform duration-200 ease-in-out md:translate-x-0',
+          'fixed inset-y-0 left-0 z-50 w-64 transform bg-card border-r border-border transition-transform duration-200 ease-in-out md:translate-x-0',
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-slate-200">
-            <Link href="/" className="font-bold text-xl text-slate-900">
-              Confraria
+          <div className="flex h-20 items-center justify-between border-b border-border px-6">
+            <Link href="/" className="inline-flex items-center">
+              <Image
+                src={WhiteConfraLogo}
+                alt="Confraria"
+                className="block w-[128px] h-auto dark:hidden"
+                priority
+              />
+              <Image
+                src={BlackConfraLogo}
+                alt="Confraria"
+                className="hidden w-[128px] h-auto dark:block"
+                priority
+              />
             </Link>
             <button
               onClick={() => setMobileMenuOpen(false)}
@@ -81,7 +96,7 @@ export default function DocsLayout({
           <nav className="flex-1 overflow-y-auto p-6 space-y-6">
             {navigation.map((section) => (
               <div key={section.title}>
-                <h3 className="text-xs font-semibold text-slate-900 uppercase tracking-wide mb-3">
+                <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide mb-3 opacity-60">
                   {section.title}
                 </h3>
                 <div className="space-y-2">
@@ -93,8 +108,8 @@ export default function DocsLayout({
                       className={cn(
                         'block px-3 py-2 rounded-lg text-sm transition-colors',
                         pathname === item.href
-                          ? 'bg-blue-50 text-blue-600 font-semibold'
-                          : 'text-slate-600 hover:bg-slate-50'
+                          ? 'bg-primary/15 text-primary font-semibold'
+                          : 'text-foreground/60 hover:bg-accent/50'
                       )}
                     >
                       {item.title}
@@ -106,8 +121,8 @@ export default function DocsLayout({
           </nav>
 
           {/* Footer */}
-          <div className="p-6 border-t border-slate-200">
-            <p className="text-xs text-slate-600">
+          <div className="p-6 border-t border-border">
+            <p className="text-xs text-foreground/60">
               v1.0.0 • {new Date().getFullYear()}
             </p>
           </div>
@@ -117,8 +132,8 @@ export default function DocsLayout({
       {/* Main */}
       <div className="flex-1 md:ml-64">
         {/* Top Bar */}
-        <header className="sticky top-0 z-40 border-b border-slate-200 bg-white">
-          <div className="flex items-center justify-between px-4 py-4 md:px-6">
+        <header className="sticky top-0 z-40 border-b border-border bg-card">
+          <div className="flex h-20 items-center justify-between px-6">
             <button
               onClick={() => setMobileMenuOpen(true)}
               className="md:hidden p-2"
@@ -126,14 +141,17 @@ export default function DocsLayout({
               <Menu className="h-6 w-6" />
             </button>
             <div className="flex-1" />
-            <Link href="/" className="text-sm text-slate-600 hover:text-slate-900">
-              ← Voltar para Home
-            </Link>
+            <div className="flex items-center gap-4">
+              <ThemeToggle />
+              <Link href="/" className="text-sm text-foreground/60 hover:text-foreground">
+                ← Voltar para Home
+              </Link>
+            </div>
           </div>
         </header>
 
         {/* Content */}
-        <main className="bg-white">{children}</main>
+        <main className="bg-background">{children}</main>
       </div>
     </div>
   )

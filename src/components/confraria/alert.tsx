@@ -12,24 +12,26 @@ export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const alertVariants = {
   default: {
-    container: 'bg-slate-50 border-slate-200 text-slate-900',
-    icon: 'text-slate-500',
+    container: 'bg-card border-border text-foreground',
+    icon: 'text-foreground/60',
   },
   success: {
-    container: 'bg-green-50 border-green-200 text-green-900',
-    icon: 'text-green-500',
+    container:
+      'bg-emerald-500/12 border-emerald-500/30 text-emerald-900 dark:text-emerald-200',
+    icon: 'text-emerald-600 dark:text-emerald-300',
   },
   warning: {
-    container: 'bg-amber-50 border-amber-200 text-amber-900',
-    icon: 'text-amber-500',
+    container:
+      'bg-amber-500/12 border-amber-500/30 text-amber-900 dark:text-amber-200',
+    icon: 'text-amber-600 dark:text-amber-300',
   },
   error: {
-    container: 'bg-red-50 border-red-200 text-red-900',
-    icon: 'text-red-500',
+    container: 'bg-red-500/12 border-red-500/30 text-red-900 dark:text-red-200',
+    icon: 'text-red-600 dark:text-red-300',
   },
   info: {
-    container: 'bg-blue-50 border-blue-200 text-blue-900',
-    icon: 'text-blue-500',
+    container: 'bg-primary/12 border-primary/35 text-foreground',
+    icon: 'text-primary',
   },
 }
 

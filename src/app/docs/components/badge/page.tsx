@@ -17,19 +17,19 @@ function CodeBlock({ code }: { code: string }) {
   }
 
   return (
-    <div className="bg-slate-950 rounded-lg p-4 relative">
+    <div className="bg-card rounded-lg p-4 relative">
       <button
         onClick={handleCopy}
-        className="absolute top-2 right-2 p-2 hover:bg-slate-800 rounded-lg transition-colors"
+        className="absolute top-2 right-2 p-2 hover:bg-accent rounded-lg transition-colors"
         title="Copy code"
       >
         {copied ? (
           <Check className="h-4 w-4 text-green-500" />
         ) : (
-          <Copy className="h-4 w-4 text-slate-400" />
+          <Copy className="h-4 w-4 text-foreground/50" />
         )}
       </button>
-      <pre className="text-slate-100 text-sm overflow-x-auto">
+      <pre className="text-foreground text-sm overflow-x-auto">
         <code>{code}</code>
       </pre>
     </div>
@@ -41,8 +41,8 @@ export default function BadgePage() {
     <div className="max-w-5xl mx-auto py-12 px-4">
       <div className="mb-12">
         <Badge className="mb-4">Componentes Base</Badge>
-        <h1 className="text-4xl font-bold mb-3 text-slate-900">Badge</h1>
-        <p className="text-lg text-slate-600 max-w-2xl">
+        <h1 className="text-4xl font-bold mb-3 text-foreground">Badge</h1>
+        <p className="text-lg text-foreground/60 max-w-2xl">
           Componente de badge para labels, status e categorização. Suporta múltiplas
           variantes com estilos visuais distintos.
         </p>
@@ -50,11 +50,11 @@ export default function BadgePage() {
 
       {/* Variantes */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Variantes</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Variantes</h2>
         <div className="space-y-8">
           {variants.map((variant) => (
             <Card key={variant} className="p-6">
-              <h3 className="font-semibold text-lg mb-4 capitalize text-slate-900">
+              <h3 className="font-semibold text-lg mb-4 capitalize text-foreground">
                 {variant}
               </h3>
               <div className="flex flex-wrap gap-3 mb-6">
@@ -72,7 +72,7 @@ export default function BadgePage() {
 
       {/* Com Ícones */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Com Ícones</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Com Ícones</h2>
         <Card className="p-6">
           <div className="flex flex-wrap gap-3 mb-6">
             <Badge>
@@ -109,23 +109,23 @@ export default function BadgePage() {
 
       {/* Exemplos de Uso */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Exemplos de Uso</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Exemplos de Uso</h2>
         <Card className="p-6">
           <div className="space-y-6 mb-6">
             <div className="flex items-center gap-3">
-              <span className="text-slate-900 font-medium">Pedido #1234</span>
+              <span className="text-foreground font-medium">Pedido #1234</span>
               <Badge>Aprovado</Badge>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-slate-900 font-medium">Pedido #1235</span>
+              <span className="text-foreground font-medium">Pedido #1235</span>
               <Badge variant="secondary">Pendente</Badge>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-slate-900 font-medium">Pedido #1236</span>
+              <span className="text-foreground font-medium">Pedido #1236</span>
               <Badge variant="destructive">Cancelado</Badge>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-slate-900 font-medium">Pedido #1237</span>
+              <span className="text-foreground font-medium">Pedido #1237</span>
               <Badge variant="outline">Em análise</Badge>
             </div>
           </div>
@@ -144,7 +144,7 @@ export default function BadgePage() {
 
       {/* Props */}
       <div>
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Props</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Props</h2>
         <Card className="p-6 overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -156,14 +156,14 @@ export default function BadgePage() {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">variant</td>
+              <tr className="border-b hover:bg-card/50">
+                <td className="py-3 px-4 font-mono text-primary">variant</td>
                 <td className="py-3 px-4">string</td>
                 <td className="py-3 px-4">&quot;default&quot;</td>
                 <td className="py-3 px-4">Variante: default, secondary, destructive, outline</td>
               </tr>
-              <tr className="hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">asChild</td>
+              <tr className="hover:bg-card/50">
+                <td className="py-3 px-4 font-mono text-primary">asChild</td>
                 <td className="py-3 px-4">boolean</td>
                 <td className="py-3 px-4">false</td>
                 <td className="py-3 px-4">Renderiza como child element</td>

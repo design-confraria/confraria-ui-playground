@@ -30,8 +30,8 @@ export default function SpacingPage() {
     <div className="max-w-6xl mx-auto py-12 px-4">
       <div className="mb-12">
         <Badge className="mb-4">Design Tokens</Badge>
-        <h1 className="text-4xl font-bold mb-3 text-slate-900">Espaçamento</h1>
-        <p className="text-lg text-slate-600 max-w-2xl">
+        <h1 className="text-4xl font-bold mb-3 text-foreground">Espaçamento</h1>
+        <p className="text-lg text-foreground/60 max-w-2xl">
           Escala de espaçamento consistente para margens, paddings e gaps.
           Baseada em múltiplos de 4px para manter ritmo visual harmônico.
         </p>
@@ -39,7 +39,7 @@ export default function SpacingPage() {
 
       {/* Escala Visual */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold mb-8 text-slate-900">Escala de Espaçamento</h2>
+        <h2 className="text-3xl font-bold mb-8 text-foreground">Escala de Espaçamento</h2>
         <Card className="p-6">
           <div className="space-y-3">
             {spacingTokens.map((space) => (
@@ -47,17 +47,17 @@ export default function SpacingPage() {
                 key={space.name}
                 className="flex items-center gap-4"
               >
-                <code className="text-sm font-mono text-slate-600 w-28 shrink-0">
+                <code className="text-sm font-mono text-foreground/60 w-28 shrink-0">
                   {space.token}
                 </code>
                 <div
-                  className="h-4 rounded bg-blue-500"
+                  className="h-4 rounded bg-primary"
                   style={{ width: space.rem }}
                 />
-                <span className="text-sm text-slate-500 w-20 shrink-0 text-right">
+                <span className="text-sm text-foreground/50 w-20 shrink-0 text-right">
                   {space.rem}
                 </span>
-                <span className="text-sm text-slate-400 w-16 shrink-0 text-right">
+                <span className="text-sm text-foreground/50 w-16 shrink-0 text-right">
                   {space.px}
                 </span>
               </div>
@@ -68,39 +68,39 @@ export default function SpacingPage() {
 
       {/* Tabela de Referência */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold mb-8 text-slate-900">Tabela de Referência</h2>
+        <h2 className="text-3xl font-bold mb-8 text-foreground">Tabela de Referência</h2>
         <Card className="overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-200 bg-slate-50">
-                  <th className="text-left py-3 px-4 font-semibold text-slate-900">Nome</th>
-                  <th className="text-left py-3 px-4 font-semibold text-slate-900">Token CSS</th>
-                  <th className="text-left py-3 px-4 font-semibold text-slate-900">Valor (rem)</th>
-                  <th className="text-left py-3 px-4 font-semibold text-slate-900">Valor (px)</th>
-                  <th className="text-left py-3 px-4 font-semibold text-slate-900">Visualização</th>
+                <tr className="border-b border-border bg-card/50">
+                  <th className="text-left py-3 px-4 font-semibold text-foreground">Nome</th>
+                  <th className="text-left py-3 px-4 font-semibold text-foreground">Token CSS</th>
+                  <th className="text-left py-3 px-4 font-semibold text-foreground">Valor (rem)</th>
+                  <th className="text-left py-3 px-4 font-semibold text-foreground">Valor (px)</th>
+                  <th className="text-left py-3 px-4 font-semibold text-foreground">Visualização</th>
                 </tr>
               </thead>
               <tbody>
                 {spacingTokens.map((space) => (
-                  <tr key={space.name} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="py-3 px-4 font-semibold text-slate-900">
+                  <tr key={space.name} className="border-b border-border/60 hover:bg-card/50">
+                    <td className="py-3 px-4 font-semibold text-foreground">
                       {space.name}
                     </td>
                     <td className="py-3 px-4">
-                      <code className="bg-slate-100 text-slate-900 px-2 py-1 rounded text-xs font-mono">
+                      <code className="bg-accent/50 text-foreground px-2 py-1 rounded text-xs font-mono">
                         {space.token}
                       </code>
                     </td>
-                    <td className="py-3 px-4 text-slate-700 font-mono">
+                    <td className="py-3 px-4 text-foreground/70 font-mono">
                       {space.rem}
                     </td>
-                    <td className="py-3 px-4 text-slate-700 font-mono">
+                    <td className="py-3 px-4 text-foreground/70 font-mono">
                       {space.px}
                     </td>
                     <td className="py-3 px-4">
                       <div
-                        className="h-3 rounded bg-blue-500"
+                        className="h-3 rounded bg-primary"
                         style={{ width: space.rem, minWidth: space.name === '0' ? '2px' : undefined }}
                       />
                     </td>
@@ -114,23 +114,23 @@ export default function SpacingPage() {
 
       {/* Exemplos de Uso */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold mb-8 text-slate-900">Exemplos de Uso</h2>
+        <h2 className="text-3xl font-bold mb-8 text-foreground">Exemplos de Uso</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card className="p-6">
-            <h3 className="font-semibold text-slate-900 mb-4">Padding interno de Cards</h3>
+            <h3 className="font-semibold text-foreground mb-4">Padding interno de Cards</h3>
             <div className="space-y-4">
               {['--space-3', '--space-4', '--space-6', '--space-8'].map((token) => {
                 const t = spacingTokens.find((s) => s.token === token)!
                 return (
                   <div key={token}>
-                    <code className="text-xs font-mono text-slate-500 block mb-1">
+                    <code className="text-xs font-mono text-foreground/50 block mb-1">
                       padding: var({token}) → {t.px}
                     </code>
                     <div
-                      className="border border-slate-200 rounded bg-slate-50"
+                      className="border border-border rounded bg-card/50"
                       style={{ padding: t.rem }}
                     >
-                      <div className="bg-blue-100 text-blue-700 text-sm rounded p-2 text-center">
+                      <div className="bg-primary/15 text-primary text-sm rounded p-2 text-center">
                         Conteúdo
                       </div>
                     </div>
@@ -141,22 +141,22 @@ export default function SpacingPage() {
           </Card>
 
           <Card className="p-6">
-            <h3 className="font-semibold text-slate-900 mb-4">Gap entre elementos</h3>
+            <h3 className="font-semibold text-foreground mb-4">Gap entre elementos</h3>
             <div className="space-y-4">
               {['--space-2', '--space-4', '--space-6', '--space-8'].map((token) => {
                 const t = spacingTokens.find((s) => s.token === token)!
                 return (
                   <div key={token}>
-                    <code className="text-xs font-mono text-slate-500 block mb-1">
+                    <code className="text-xs font-mono text-foreground/50 block mb-1">
                       gap: var({token}) → {t.px}
                     </code>
                     <div
                       className="flex"
                       style={{ gap: t.rem }}
                     >
-                      <div className="bg-blue-100 text-blue-700 text-xs rounded p-2">A</div>
-                      <div className="bg-blue-100 text-blue-700 text-xs rounded p-2">B</div>
-                      <div className="bg-blue-100 text-blue-700 text-xs rounded p-2">C</div>
+                      <div className="bg-primary/15 text-primary text-xs rounded p-2">A</div>
+                      <div className="bg-primary/15 text-primary text-xs rounded p-2">B</div>
+                      <div className="bg-primary/15 text-primary text-xs rounded p-2">C</div>
                     </div>
                   </div>
                 )
@@ -168,12 +168,12 @@ export default function SpacingPage() {
 
       {/* Como Usar */}
       <section>
-        <h2 className="text-3xl font-bold mb-8 text-slate-900">Como Usar</h2>
+        <h2 className="text-3xl font-bold mb-8 text-foreground">Como Usar</h2>
         <Card className="p-6">
           <div className="space-y-6">
             <div>
-              <h3 className="font-semibold text-slate-900 mb-2">Em CSS</h3>
-              <pre className="bg-slate-950 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">
+              <h3 className="font-semibold text-foreground mb-2">Em CSS</h3>
+              <pre className="bg-card text-foreground p-4 rounded-lg overflow-x-auto text-sm">
                 <code>{`.card {
   padding: var(--space-4);      /* 16px */
   margin-bottom: var(--space-6); /* 24px */
@@ -183,8 +183,8 @@ export default function SpacingPage() {
             </div>
 
             <div>
-              <h3 className="font-semibold text-slate-900 mb-2">Em Tailwind CSS</h3>
-              <pre className="bg-slate-950 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">
+              <h3 className="font-semibold text-foreground mb-2">Em Tailwind CSS</h3>
+              <pre className="bg-card text-foreground p-4 rounded-lg overflow-x-auto text-sm">
                 <code>{`{/* Os tokens de espaçamento mapeiam para a escala Tailwind */}
 <div className="p-4 mb-6 gap-3">
   Conteúdo com spacing tokens
@@ -198,8 +198,8 @@ export default function SpacingPage() {
             </div>
 
             <div>
-              <h3 className="font-semibold text-slate-900 mb-2">Boas Práticas</h3>
-              <ul className="list-disc list-inside space-y-2 text-slate-600">
+              <h3 className="font-semibold text-foreground mb-2">Boas Práticas</h3>
+              <ul className="list-disc list-inside space-y-2 text-foreground/60">
                 <li>Use múltiplos de 4px para manter consistência visual</li>
                 <li>Prefira tokens ao invés de valores arbitrários</li>
                 <li>Use espaçamentos menores (2-4) para elementos internos</li>

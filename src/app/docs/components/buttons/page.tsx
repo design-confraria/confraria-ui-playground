@@ -19,19 +19,19 @@ function CodeBlock({ code }: { code: string }) {
   }
 
   return (
-    <div className="bg-slate-950 rounded-lg p-4 relative">
+    <div className="bg-card border border-border rounded-lg p-4 relative">
       <button
         onClick={handleCopy}
-        className="absolute top-2 right-2 p-2 hover:bg-slate-800 rounded-lg transition-colors"
+        className="absolute top-2 right-2 p-2 hover:bg-accent rounded-lg transition-colors"
         title="Copy code"
       >
         {copied ? (
-          <Check className="h-4 w-4 text-green-500" />
+          <Check className="h-4 w-4 text-confraria-500" />
         ) : (
-          <Copy className="h-4 w-4 text-slate-400" />
+          <Copy className="h-4 w-4 text-foreground/50" />
         )}
       </button>
-      <pre className="text-slate-100 text-sm overflow-x-auto">
+      <pre className="text-foreground text-sm overflow-x-auto">
         <code>{code}</code>
       </pre>
     </div>
@@ -43,8 +43,8 @@ export default function ButtonsPage() {
     <div className="max-w-5xl mx-auto py-12 px-4">
       <div className="mb-12">
         <Badge className="mb-4">Componentes Base</Badge>
-        <h1 className="text-4xl font-bold mb-3 text-slate-900">Button</h1>
-        <p className="text-lg text-slate-600 max-w-2xl">
+        <h1 className="text-4xl font-bold mb-3 text-foreground">Button</h1>
+        <p className="text-lg text-foreground/60 max-w-2xl">
           Componente de botão versátil construído com Radix UI. Suporta múltiplas
           variantes, tamanhos e estados.
         </p>
@@ -52,11 +52,11 @@ export default function ButtonsPage() {
 
       {/* Variants */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Variantes</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Variantes</h2>
         <div className="space-y-8">
           {variants.map((variant) => (
             <Card key={variant} className="p-6">
-              <h3 className="font-semibold text-lg mb-4 capitalize text-slate-900">
+              <h3 className="font-semibold text-lg mb-4 capitalize text-foreground">
                 {variant}
               </h3>
               <div className="flex flex-wrap gap-4 mb-6">
@@ -81,7 +81,7 @@ export default function ButtonsPage() {
 
       {/* Tamanhos */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Tamanhos</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Tamanhos</h2>
         <Card className="p-6">
           <div className="flex flex-wrap gap-4 mb-6">
             <Button size="sm">Small</Button>
@@ -98,7 +98,7 @@ export default function ButtonsPage() {
 
       {/* Estados */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Estados</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Estados</h2>
         <Card className="p-6">
           <div className="flex flex-wrap gap-4 mb-6">
             <Button disabled>Disabled</Button>
@@ -119,18 +119,18 @@ export default function ButtonsPage() {
 
       {/* Ícones */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Com Ícones</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Com Ícones</h2>
         <Card className="p-6">
           <div className="flex flex-wrap gap-4 mb-6">
-            <Button>
+            <Button size="lg">
               <span className="mr-2">📝</span>
               Edit
             </Button>
-            <Button variant="outline">
+            <Button variant="outline" size="lg">
               Save
               <span className="ml-2">💾</span>
             </Button>
-            <Button variant="destructive">
+            <Button variant="destructive" size="lg">
               <span className="mr-2">🗑️</span>
               Delete
             </Button>
@@ -148,43 +148,43 @@ export default function ButtonsPage() {
 
       {/* Props */}
       <div>
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Props</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Props</h2>
         <Card className="p-6 overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b">
-                <th className="text-left py-3 px-4 font-semibold">Prop</th>
-                <th className="text-left py-3 px-4 font-semibold">Tipo</th>
-                <th className="text-left py-3 px-4 font-semibold">Padrão</th>
-                <th className="text-left py-3 px-4 font-semibold">Descrição</th>
+              <tr className="border-b border-border">
+                <th className="text-left py-3 px-4 font-semibold text-foreground">Prop</th>
+                <th className="text-left py-3 px-4 font-semibold text-foreground">Tipo</th>
+                <th className="text-left py-3 px-4 font-semibold text-foreground">Padrão</th>
+                <th className="text-left py-3 px-4 font-semibold text-foreground">Descrição</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">variant</td>
-                <td className="py-3 px-4">string</td>
-                <td className="py-3 px-4">&quot;default&quot;</td>
-                <td className="py-3 px-4">
+              <tr className="border-b border-border hover:bg-accent/30">
+                <td className="py-3 px-4 font-mono text-primary">variant</td>
+                <td className="py-3 px-4 text-foreground/70">string</td>
+                <td className="py-3 px-4 text-foreground/70">&quot;default&quot;</td>
+                <td className="py-3 px-4 text-foreground/70">
                   A variante do botão: default, secondary, destructive, outline, ghost
                 </td>
               </tr>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">size</td>
-                <td className="py-3 px-4">string</td>
-                <td className="py-3 px-4">&quot;default&quot;</td>
-                <td className="py-3 px-4">O tamanho do botão: sm, default, lg, icon</td>
+              <tr className="border-b border-border hover:bg-accent/30">
+                <td className="py-3 px-4 font-mono text-primary">size</td>
+                <td className="py-3 px-4 text-foreground/70">string</td>
+                <td className="py-3 px-4 text-foreground/70">&quot;default&quot;</td>
+                <td className="py-3 px-4 text-foreground/70">O tamanho do botão: sm, default, lg, icon</td>
               </tr>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">disabled</td>
-                <td className="py-3 px-4">boolean</td>
-                <td className="py-3 px-4">false</td>
-                <td className="py-3 px-4">Desabilita o botão</td>
+              <tr className="border-b border-border hover:bg-accent/30">
+                <td className="py-3 px-4 font-mono text-primary">disabled</td>
+                <td className="py-3 px-4 text-foreground/70">boolean</td>
+                <td className="py-3 px-4 text-foreground/70">false</td>
+                <td className="py-3 px-4 text-foreground/70">Desabilita o botão</td>
               </tr>
-              <tr className="hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">asChild</td>
-                <td className="py-3 px-4">boolean</td>
-                <td className="py-3 px-4">false</td>
-                <td className="py-3 px-4">Integra o estilo com outros componentes</td>
+              <tr className="hover:bg-accent/30">
+                <td className="py-3 px-4 font-mono text-primary">asChild</td>
+                <td className="py-3 px-4 text-foreground/70">boolean</td>
+                <td className="py-3 px-4 text-foreground/70">false</td>
+                <td className="py-3 px-4 text-foreground/70">Integra o estilo com outros componentes</td>
               </tr>
             </tbody>
           </table>

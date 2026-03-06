@@ -25,19 +25,19 @@ function CodeBlock({ code }: { code: string }) {
   }
 
   return (
-    <div className="bg-slate-950 rounded-lg p-4 relative">
+    <div className="bg-card border border-border rounded-lg p-4 relative">
       <button
         onClick={handleCopy}
-        className="absolute top-2 right-2 p-2 hover:bg-slate-800 rounded-lg transition-colors"
+        className="absolute top-2 right-2 p-2 hover:bg-accent rounded-lg transition-colors"
         title="Copy code"
       >
         {copied ? (
-          <Check className="h-4 w-4 text-green-500" />
+          <Check className="h-4 w-4 text-confraria-500" />
         ) : (
-          <Copy className="h-4 w-4 text-slate-400" />
+          <Copy className="h-4 w-4 text-foreground/50" />
         )}
       </button>
-      <pre className="text-slate-100 text-sm overflow-x-auto">
+      <pre className="text-foreground text-sm overflow-x-auto">
         <code>{code}</code>
       </pre>
     </div>
@@ -49,17 +49,17 @@ export default function CardPage() {
     <div className="max-w-5xl mx-auto py-12 px-4">
       <div className="mb-12">
         <Badge className="mb-4">Componentes Base</Badge>
-        <h1 className="text-4xl font-bold mb-3 text-slate-900">Card</h1>
-        <p className="text-lg text-slate-600 max-w-2xl">
+        <h1 className="text-4xl font-bold mb-3 text-foreground">Card</h1>
+        <p className="text-lg text-foreground/60 max-w-2xl">
           Componente de card para agrupar conteúdo relacionado com bordas, sombras e padding consistentes.
         </p>
       </div>
 
       {/* Card Básico */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Card Básico</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Card Básico</h2>
         <Card className="p-6 mb-6">
-          <p className="text-slate-700">
+          <p className="text-foreground/70">
             Este é um card simples com padding. Pode ser usado para agrupar qualquer conteúdo.
           </p>
         </Card>
@@ -72,7 +72,7 @@ export default function CardPage() {
 
       {/* Login Card */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Login Card</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Login Card</h2>
         <div className="flex justify-center mb-6">
           <Card className="w-full max-w-sm">
             <CardHeader>
@@ -95,7 +95,7 @@ export default function CardPage() {
                   <Label htmlFor="login-password">Password</Label>
                   <a
                     href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline text-primary"
                   >
                     Forgot your password?
                   </a>
@@ -104,8 +104,8 @@ export default function CardPage() {
               </div>
             </CardContent>
             <CardFooter className="flex-col gap-2">
-              <Button className="w-full">Login</Button>
-              <Button variant="outline" className="w-full">
+              <Button className="w-full" size="lg">Login</Button>
+              <Button variant="outline" className="w-full" size="lg">
                 Login with Google
               </Button>
             </CardFooter>
@@ -144,20 +144,20 @@ export default function CardPage() {
 
       {/* Card com Header */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Card com Header</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Card com Header</h2>
         <Card className="mb-6">
           <CardHeader>
             <CardTitle>Título do Card</CardTitle>
             <CardDescription>Descrição breve do conteúdo do card.</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-slate-700">
+            <p className="text-foreground/70">
               Conteúdo principal do card. Use CardContent para o corpo do card.
             </p>
           </CardContent>
           <CardFooter>
-            <Button variant="outline" size="sm">Cancelar</Button>
-            <Button size="sm" className="ml-2">Salvar</Button>
+            <Button variant="outline" size="lg">Cancelar</Button>
+            <Button size="lg" className="ml-2">Salvar</Button>
           </CardFooter>
         </Card>
         <CodeBlock
@@ -179,7 +179,7 @@ export default function CardPage() {
 
       {/* Grid de Cards */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Grid de Cards</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Grid de Cards</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           <Card>
             <CardHeader>
@@ -187,11 +187,11 @@ export default function CardPage() {
               <CardDescription>Para começar</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-slate-900">R$ 0</p>
-              <p className="text-sm text-slate-500">por mês</p>
+              <p className="text-3xl font-bold text-foreground">R$ 0</p>
+              <p className="text-sm text-foreground/60">por mês</p>
             </CardContent>
             <CardFooter>
-              <Button variant="outline" className="w-full">Selecionar</Button>
+              <Button variant="outline" className="w-full" size="lg">Selecionar</Button>
             </CardFooter>
           </Card>
           <Card>
@@ -200,11 +200,11 @@ export default function CardPage() {
               <CardDescription>Para profissionais</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-slate-900">R$ 49</p>
-              <p className="text-sm text-slate-500">por mês</p>
+              <p className="text-3xl font-bold text-foreground">R$ 49</p>
+              <p className="text-sm text-foreground/60">por mês</p>
             </CardContent>
             <CardFooter>
-              <Button className="w-full">Selecionar</Button>
+              <Button className="w-full" size="lg">Selecionar</Button>
             </CardFooter>
           </Card>
           <Card>
@@ -213,11 +213,11 @@ export default function CardPage() {
               <CardDescription>Para grandes times</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-slate-900">R$ 199</p>
-              <p className="text-sm text-slate-500">por mês</p>
+              <p className="text-3xl font-bold text-foreground">R$ 199</p>
+              <p className="text-sm text-foreground/60">por mês</p>
             </CardContent>
             <CardFooter>
-              <Button variant="secondary" className="w-full">Contato</Button>
+              <Button variant="secondary" className="w-full" size="lg">Contato</Button>
             </CardFooter>
           </Card>
         </div>
@@ -241,39 +241,39 @@ export default function CardPage() {
 
       {/* Props */}
       <div>
-        <h2 className="text-2xl font-bold mb-6 text-slate-900">Subcomponentes</h2>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">Subcomponentes</h2>
         <Card className="p-6 overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b">
-                <th className="text-left py-3 px-4 font-semibold">Componente</th>
-                <th className="text-left py-3 px-4 font-semibold">Descrição</th>
+              <tr className="border-b border-border">
+                <th className="text-left py-3 px-4 font-semibold text-foreground">Componente</th>
+                <th className="text-left py-3 px-4 font-semibold text-foreground">Descrição</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">Card</td>
-                <td className="py-3 px-4">Container principal com borda e sombra</td>
+              <tr className="border-b border-border hover:bg-accent/30">
+                <td className="py-3 px-4 font-mono text-primary">Card</td>
+                <td className="py-3 px-4 text-foreground/70">Container principal com borda e sombra</td>
               </tr>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">CardHeader</td>
-                <td className="py-3 px-4">Cabeçalho do card com título e descrição</td>
+              <tr className="border-b border-border hover:bg-accent/30">
+                <td className="py-3 px-4 font-mono text-primary">CardHeader</td>
+                <td className="py-3 px-4 text-foreground/70">Cabeçalho do card com título e descrição</td>
               </tr>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">CardTitle</td>
-                <td className="py-3 px-4">Título do card</td>
+              <tr className="border-b border-border hover:bg-accent/30">
+                <td className="py-3 px-4 font-mono text-primary">CardTitle</td>
+                <td className="py-3 px-4 text-foreground/70">Título do card</td>
               </tr>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">CardDescription</td>
-                <td className="py-3 px-4">Descrição/subtítulo do card</td>
+              <tr className="border-b border-border hover:bg-accent/30">
+                <td className="py-3 px-4 font-mono text-primary">CardDescription</td>
+                <td className="py-3 px-4 text-foreground/70">Descrição/subtítulo do card</td>
               </tr>
-              <tr className="border-b hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">CardContent</td>
-                <td className="py-3 px-4">Corpo do card para conteúdo principal</td>
+              <tr className="border-b border-border hover:bg-accent/30">
+                <td className="py-3 px-4 font-mono text-primary">CardContent</td>
+                <td className="py-3 px-4 text-foreground/70">Corpo do card para conteúdo principal</td>
               </tr>
-              <tr className="hover:bg-slate-50">
-                <td className="py-3 px-4 font-mono text-blue-600">CardFooter</td>
-                <td className="py-3 px-4">Rodapé do card, ideal para ações</td>
+              <tr className="hover:bg-accent/30">
+                <td className="py-3 px-4 font-mono text-primary">CardFooter</td>
+                <td className="py-3 px-4 text-foreground/70">Rodapé do card, ideal para ações</td>
               </tr>
             </tbody>
           </table>
