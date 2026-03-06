@@ -1,6 +1,7 @@
 import React from 'react'
 import { Star, Flame } from 'lucide-react'
 import { Button } from '../ui/button'
+import { Badge } from '../ui/badge'
 import { cn } from '../../lib/utils'
 
 export interface EventCardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -67,18 +68,19 @@ export const EventCard = React.forwardRef<HTMLDivElement, EventCardProps>(
           )}
 
           {/* Badge de avaliação */}
-          <div className="absolute right-2 top-2 flex items-center gap-1 rounded-full bg-white px-2.5 py-1 shadow-sm">
-            <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-            <span className="text-xs font-semibold text-gray-900">
-              {rating.toFixed(1).replace('.', ',')} ({reviewCount.toLocaleString('pt-BR')})
-            </span>
-          </div>
+          <Badge
+            variant="outline"
+            className="absolute right-2 top-2 bg-white/95 shadow-sm text-gray-900 dark:bg-card/95 dark:text-foreground"
+          >
+            <Star className="fill-amber-400 text-amber-400" />
+            {rating.toFixed(1).replace('.', ',')} ({reviewCount.toLocaleString('pt-BR')})
+          </Badge>
         </div>
 
         {/* Informações */}
-        <div className="flex flex-col gap-0.5 px-1">
+        <div className="flex flex-col gap-1.5 px-1">
           <p className="font-semibold text-sm leading-tight text-foreground">{name}</p>
-          <p className="text-xs text-muted-foreground">{category}</p>
+          <Badge variant="secondary" className="self-start">{category}</Badge>
         </div>
 
         {/* Separador */}
