@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "jsx": "react-native",
+    "lib": ["esnext"],
+    "moduleResolution": "bundler",
+    "allowJs": false,
+    "plugins": []
+  },
+  "include": [
+    "src/ui-reactnative/**/*.ts",
+    "src/ui-reactnative/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

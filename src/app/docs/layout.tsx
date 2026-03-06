@@ -48,6 +48,13 @@ const navigation = [
       { title: 'Ícones Lucide', href: '/docs/icons' },
     ],
   },
+  {
+    title: 'Mobile',
+    href: '/docs/mobile',
+    items: [
+      { title: 'React Native', href: '/docs/mobile' },
+    ],
+  },
 ]
 
 export default function DocsLayout({

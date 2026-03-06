@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { EventCard } from '@/components/confraria/event-card'
 import { Copy, Check } from 'lucide-react'
 import { useState } from 'react'
 
@@ -236,6 +237,47 @@ export default function CardPage() {
     </CardFooter>
   </Card>
 </div>`}
+        />
+      </div>
+
+      {/* EventCard */}
+      <div className="mb-16">
+        <h2 className="text-2xl font-bold mb-2 text-foreground">EventCard</h2>
+        <p className="text-sm text-foreground/60 mb-6">
+          Card de evento com imagem de capa, badge de avaliação, nome, categoria e botão de ação.
+          Componente pronto do sistema Confraria.
+        </p>
+        <div className="flex flex-wrap gap-6 mb-6">
+          <EventCard
+            name="Nome do Evento"
+            category="Categoria"
+          />
+          <EventCard
+            imageSrc="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=496&q=80"
+            name="Festival de Gastronomia SP"
+            category="Gastronomia · São Paulo"
+            rating={4.7}
+            reviewCount={1240}
+          />
+        </div>
+        <CodeBlock
+          code={`import { EventCard } from '@confraria/ui'
+
+// Sem imagem (placeholder)
+<EventCard
+  name="Nome do Evento"
+  category="Categoria"
+/>
+
+// Com imagem e dados reais
+<EventCard
+  imageSrc="https://exemplo.com/imagem.jpg"
+  name="Festival de Gastronomia SP"
+  category="Gastronomia · São Paulo"
+  rating={4.7}
+  reviewCount={1240}
+  onEventClick={() => router.push('/evento/123')}
+/>`}
         />
       </div>
 

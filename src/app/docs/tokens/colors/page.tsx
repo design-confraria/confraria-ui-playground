@@ -130,13 +130,13 @@ export default function ColorsPage() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
               {colorGroup.palette.map((color) => (
-                <Card key={color.shade} className="overflow-hidden">
+                <Card key={color.shade} className="overflow-hidden pt-0 gap-0">
                   <div
                     className="h-24 w-full relative"
                     style={{ backgroundColor: color.hex }}
                   >
                     {color.primary && (
-                      <Badge className="absolute top-2 right-2 bg-white text-foreground">
+                      <Badge className="absolute top-2 right-2 bg-white text-slate-900">
                         Primary
                       </Badge>
                     )}

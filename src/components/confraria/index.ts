@@ -15,3 +15,6 @@ export type { EmptyStateProps } from './empty-state'
 
 export { StatCard } from './stat-card'
 export type { StatCardProps } from './stat-card'
+
+export { EventCard } from './event-card'
+export type { EventCardProps } from './event-card'

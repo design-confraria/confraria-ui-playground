@@ -27,6 +27,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body
         className={`${dmSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         {children}
       </body>
