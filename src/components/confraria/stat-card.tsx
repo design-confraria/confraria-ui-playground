@@ -1,7 +1,7 @@
 import React from 'react'
 import { LucideIcon, TrendingUp, TrendingDown } from 'lucide-react'
-import { Card } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
+import { Card } from '../ui/card'
+import { cn } from '../../lib/utils'
 
 export interface StatCardProps extends React.HTMLAttributes<HTMLDivElement> {
   icon?: LucideIcon

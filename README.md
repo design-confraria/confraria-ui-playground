@@ -35,6 +35,54 @@ npm run dev
 
 Acesse [http://localhost:3000](http://localhost:3000) para ver a documentação.
 
+## 📦 Usar Como Pacote npm
+
+Este projeto agora tambem pode ser publicado como biblioteca npm para reutilizar componentes em outros apps React/Next.
+
+### 1. Build da biblioteca
+
+```bash
+npm run build:package
+```
+
+Isso gera a pasta `dist/` com JavaScript e tipagens TypeScript.
+
+### 2. Publicar no npm
+
+Antes de publicar, ajuste `name` e `version` no `package.json`.
+
+```bash
+npm login
+npm publish --access public
+```
+
+### 3. Instalar em outro projeto
+
+```bash
+npm install confraria-ui-playground
+```
+
+### 4. Importar componentes
+
+```tsx
+import { Button, StatCard, Alert } from 'confraria-ui-playground'
+import 'confraria-ui-playground/styles.css'
+```
+
+### 5. Configurar Tailwind no projeto consumidor
+
+Os componentes usam classes utilitarias. No Tailwind do projeto consumidor, inclua o pacote na leitura de classes:
+
+```js
+// tailwind.config.js / tailwind.config.ts
+export default {
+    content: [
+        './src/**/*.{js,ts,jsx,tsx,mdx}',
+        './node_modules/confraria-ui-playground/dist/**/*.{js,mjs}',
+    ],
+}
+```
+
 ## 📦 Estrutura do Projeto
 
 ```
@@ -86,6 +134,12 @@ Baseados em Tailwind CSS com escala 4px
 ```bash
 npm run build
 npm start
+```
+
+Para build da biblioteca npm:
+
+```bash
+npm run build:package
 ```
 
 ## 📚 Documentação
