@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { DatePicker } from '@/components/confraria/date-picker'
 import { Copy, Check } from 'lucide-react'
 import { useState } from 'react'
 
@@ -34,6 +35,11 @@ function CodeBlock({ code }: { code: string }) {
       </pre>
     </div>
   )
+}
+
+function DatePickerDemo() {
+  const [date, setDate] = useState<Date | undefined>()
+  return <DatePicker value={date} onChange={setDate} />
 }
 
 export default function InputPage() {
@@ -97,7 +103,7 @@ export default function InputPage() {
             </div>
             <div className="space-y-2">
               <Label>Data</Label>
-              <Input type="date" />
+              <DatePickerDemo />
             </div>
             <div className="space-y-2">
               <Label>Busca</Label>
@@ -111,7 +117,7 @@ export default function InputPage() {
           <CodeBlock
             code={`<Input type="text" placeholder="Texto normal" />
 <Input type="number" placeholder="123" />
-<Input type="date" />
+<DatePicker value={date} onChange={setDate} />
 <Input type="search" placeholder="Buscar..." />
 <Input type="file" />`}
           />
@@ -140,6 +146,50 @@ export default function InputPage() {
             code={`<Input placeholder="Input normal" />
 <Input disabled placeholder="Input desabilitado" />
 <Input aria-invalid="true" placeholder="Input com erro" />`}
+          />
+        </Card>
+      </div>
+
+      {/* DatePicker */}
+      <div className="mb-16">
+        <h2 className="text-2xl font-bold mb-2 text-foreground">Date Picker</h2>
+        <p className="text-sm text-foreground/60 mb-6">
+          Seletor de data com calendário personalizado via Popover — sem abrir o seletor nativo do navegador.
+          Baseado em <code className="text-primary bg-primary/10 px-1 rounded">react-day-picker</code> e formatado com
+          <code className="text-primary bg-primary/10 px-1 rounded"> date-fns</code>.
+        </p>
+        <Card className="p-6">
+          <div className="max-w-sm space-y-4 mb-6">
+            <div className="space-y-2">
+              <Label>Data</Label>
+              <DatePickerDemo />
+            </div>
+            <div className="space-y-2">
+              <Label>Desabilitado</Label>
+              <DatePicker placeholder="Selecione uma data" disabled />
+            </div>
+          </div>
+          <CodeBlock
+            code={`import { DatePicker } from '@confraria/ui'
+import { useState } from 'react'
+
+const [date, setDate] = useState<Date | undefined>()
+
+<DatePicker
+  value={date}
+  onChange={setDate}
+  placeholder="Selecione uma data"
+/>
+
+// Formato personalizado
+<DatePicker
+  value={date}
+  onChange={setDate}
+  dateFormat="MMMM 'de' yyyy"
+/>
+
+// Desabilitado
+<DatePicker placeholder="Selecione uma data" disabled />`}
           />
         </Card>
       </div>

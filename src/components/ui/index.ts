@@ -1,5 +1,7 @@
 export { Badge, badgeVariants } from './badge'
 export { Button, buttonVariants } from './button'
+export { Calendar } from './calendar'
+export type { CalendarProps } from './calendar'
 export {
   Card,
   CardAction,
@@ -41,6 +43,7 @@ export {
 } from './dropdown-menu'
 export { Input } from './input'
 export { Label } from './label'
+export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor } from './popover'
 export {
   Select,
   SelectContent,

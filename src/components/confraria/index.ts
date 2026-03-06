@@ -1,6 +1,9 @@
 export { Alert } from './alert'
 export type { AlertProps } from './alert'
 
+export { DatePicker } from './date-picker'
+export type { DatePickerProps } from './date-picker'
+
 export { IconButton } from './icon-button'
 export type { IconButtonProps } from './icon-button'
 
