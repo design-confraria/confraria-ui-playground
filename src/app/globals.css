@@ -2,7 +2,10 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+/* O :not(.light *) permite que um trecho escopado em .light cancele um
+   .dark ancestral — necessário para a pré-visualização de tema na doc de
+   cores, onde um painel simula um tema dentro do outro. */
+@custom-variant dark (&:is(.dark *):not(.light *));
 
 @theme inline {
   --color-background: var(--background);
@@ -454,6 +457,98 @@
   --info-solid-hover: var(--blue-300);
   --info-on-solid: var(--blue-950);
   --info-text: var(--blue-200);
+}
+
+/* Escopo de tema claro explicito.
+   Existe para que um trecho da pagina possa simular o light enquanto o
+   <html> esta em .dark - usado pela pre-visualizacao de tema na doc de
+   cores. Espelha os mesmos tokens que .dark sobrescreve. */
+.light {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.76 0.16 120);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  --confraria-50: #F9FBEA;
+  --confraria-100: #F0F5D2;
+  --confraria-200: #E0EDA9;
+  --confraria-300: #C9DF77;
+  --confraria-400: #B1CE4D;
+  --primary-bg-subtle: var(--confraria-50);
+  --primary-bg: var(--confraria-100);
+  --primary-border: var(--confraria-300);
+  --primary-solid: var(--confraria-500);
+  --primary-solid-hover: var(--confraria-600);
+  --primary-on-solid: #1f2a0a;
+  --primary-text: var(--confraria-700);
+  --secondary-bg-subtle: var(--slate-50);
+  --secondary-bg: var(--slate-100);
+  --secondary-border: var(--slate-300);
+  --secondary-solid: var(--slate-600);
+  --secondary-solid-hover: var(--slate-700);
+  --secondary-on-solid: #ffffff;
+  --secondary-text: var(--slate-800);
+  --neutral-bg-subtle: var(--slate-50);
+  --neutral-bg: var(--slate-100);
+  --neutral-border: var(--slate-300);
+  --neutral-solid: var(--slate-500);
+  --neutral-solid-hover: var(--slate-600);
+  --neutral-on-solid: #ffffff;
+  --neutral-text: var(--slate-700);
+  --success-bg-subtle: var(--green-50);
+  --success-bg: var(--green-100);
+  --success-border: var(--green-300);
+  --success-solid: var(--green-700);
+  --success-solid-hover: var(--green-800);
+  --success-on-solid: #ffffff;
+  --success-text: var(--green-800);
+  --warning-bg-subtle: var(--amber-50);
+  --warning-bg: var(--amber-100);
+  --warning-border: var(--amber-300);
+  --warning-solid: var(--amber-500);
+  --warning-solid-hover: var(--amber-600);
+  --warning-on-solid: #3b2500;
+  --warning-text: var(--amber-800);
+  --danger-bg-subtle: var(--red-50);
+  --danger-bg: var(--red-100);
+  --danger-border: var(--red-300);
+  --danger-solid: var(--red-600);
+  --danger-solid-hover: var(--red-700);
+  --danger-on-solid: #ffffff;
+  --danger-text: var(--red-800);
+  --info-bg-subtle: var(--blue-50);
+  --info-bg: var(--blue-100);
+  --info-border: var(--blue-300);
+  --info-solid: var(--blue-600);
+  --info-solid-hover: var(--blue-700);
+  --info-on-solid: #ffffff;
+  --info-text: var(--blue-800);
 }
 
 @layer base {

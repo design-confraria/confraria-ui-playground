@@ -1,8 +1,11 @@
 "use client"
 
+import { useState } from 'react'
+
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { useTheme, type Theme } from '@/hooks/use-theme'
 
 // ─── Camada semântica ────────────────────────────────────────────────────────
 // Cada papel expõe os MESMOS 7 steps. O nome do token é estável entre light e
@@ -316,9 +319,24 @@ const roleAccent: Record<string, { bg: string; text: string }> = {
   Info:      { bg: '#2563eb', text: '#fff' },
 }
 
-type Theme = 'light' | 'dark'
 
 export default function ColorsPage() {
+  const appTheme = useTheme()
+
+  // A aba acompanha o tema da aplicação por padrão: quem liga o dark mode
+  // quer ver as cores do dark. Mas comparar os dois temas é uma função
+  // legítima da doc, então uma escolha manual desacopla a aba até que o
+  // usuário volte a alinhá-la com o tema ativo.
+  const [tabOverride, setTabOverride] = useState<Theme | null>(null)
+  const activeTab = tabOverride ?? appTheme
+  const isSimulating = activeTab !== appTheme
+
+  const handleTabChange = (value: string) => {
+    const next = value as Theme
+    // Voltar a bater com o tema da app volta ao modo "segue o tema".
+    setTabOverride(next === appTheme ? null : next)
+  }
+
   const renderSemanticRoles = (theme: Theme) => (
     <div className="space-y-12">
       {semanticRoles.map((role) => {
@@ -524,13 +542,52 @@ export default function ColorsPage() {
           resolve no tema selecionado. O shade aparece como referência — não como nome.
         </p>
 
-        <Tabs defaultValue="light" className="w-full">
-          <TabsList className="mb-8">
-            <TabsTrigger value="light">Light theme</TabsTrigger>
-            <TabsTrigger value="dark">Dark theme</TabsTrigger>
-          </TabsList>
-          <TabsContent value="light">{renderSemanticRoles('light')}</TabsContent>
-          <TabsContent value="dark">{renderSemanticRoles('dark')}</TabsContent>
+        <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
+          <div className="flex flex-wrap items-center gap-3 mb-8">
+            <TabsList>
+              <TabsTrigger value="light">Light theme</TabsTrigger>
+              <TabsTrigger value="dark">Dark theme</TabsTrigger>
+            </TabsList>
+
+            {isSimulating ? (
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground/60 rounded-full border border-border px-2.5 py-1">
+                  <span
+                    aria-hidden
+                    className="h-1.5 w-1.5 rounded-full"
+                    style={{ backgroundColor: activeTab === 'dark' ? '#0f172a' : '#f8fafc', outline: '1px solid currentColor' }}
+                  />
+                  Pré-visualizando {activeTab}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setTabOverride(null)}
+                  className="text-xs font-medium text-foreground/50 underline underline-offset-2 hover:text-foreground/80 transition-colors"
+                >
+                  Voltar ao tema atual
+                </button>
+              </div>
+            ) : (
+              <span className="text-xs text-foreground/40">
+                Acompanha o tema da página
+              </span>
+            )}
+          </div>
+
+          {/* Ao simular o tema oposto, os swatches vão para um painel com o
+              fundo daquele tema. Sem isso, o usuário avalia uma cor de dark
+              sobre uma página branca — que é justamente o contexto errado. */}
+          <div
+            className={
+              isSimulating
+                ? `${activeTab} rounded-2xl p-5 sm:p-6 border border-border bg-background text-foreground`
+                : ''
+            }
+            style={isSimulating ? { colorScheme: activeTab } : undefined}
+          >
+            <TabsContent value="light">{renderSemanticRoles('light')}</TabsContent>
+            <TabsContent value="dark">{renderSemanticRoles('dark')}</TabsContent>
+          </div>
         </Tabs>
       </section>
 
