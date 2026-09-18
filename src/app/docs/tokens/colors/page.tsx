@@ -1,5 +1,8 @@
+"use client"
+
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 // ─── Semantic color roles ────────────────────────────────────────────────────
 // Pattern established by Material Design 3, Atlassian Design System,
@@ -101,6 +104,25 @@ const semanticRoles = [
     ],
   },
 ]
+
+type SemanticRole = {
+  role: string
+  description: string
+  palette: string
+  swatches: Array<{
+    label: string
+    shade: string
+    hex: string
+    usage: string
+    default?: boolean
+  }>
+  preview?: {
+    background: string
+    text: string
+    button: string
+    buttonText: string
+  }
+}
 
 // ─── Full raw palettes ───────────────────────────────────────────────────────
 
@@ -221,16 +243,185 @@ const palettes = [
 
 // ─── Role badge colors ───────────────────────────────────────────────────────
 const roleAccent: Record<string, { bg: string; text: string }> = {
-  Primary:   { bg: '#9FC132', text: '#fff' },
+  Primary:   { bg: '#9FC132', text: '#1f2a0a' },
   Secondary: { bg: '#475569', text: '#fff' },
   Neutral:   { bg: '#94a3b8', text: '#1e293b' },
-  Success:   { bg: '#16a34a', text: '#fff' },
-  Warning:   { bg: '#f59e0b', text: '#fff' },
+  Success:   { bg: '#16a34a', text: '#052e16' },
+  Warning:   { bg: '#f59e0b', text: '#3b2500' },
   Danger:    { bg: '#dc2626', text: '#fff' },
   Info:      { bg: '#2563eb', text: '#fff' },
 }
 
+const darkSemanticRoles = [
+  {
+    role: 'Primary',
+    description: 'Acento de marca preservado no dark theme, com superfícies verdes profundas.',
+    palette: 'Confraria dark',
+    swatches: [
+      { label: 'Subtle Background', shade: '50', hex: '#0f1a0b', usage: 'Fundo de banners e chips selecionados' },
+      { label: 'Background', shade: '100', hex: '#14220c', usage: 'Hover em superfícies subtis' },
+      { label: 'Border', shade: '400', hex: '#2f4f16', usage: 'Bordas de inputs e outlines' },
+      { label: 'Solid', shade: '500', hex: '#9FC132', usage: 'Botão primário, ícones de destaque', default: true },
+      { label: 'Solid Hover', shade: '400', hex: '#B1CE4D', usage: 'Hover do botão primário' },
+      { label: 'Text', shade: '200', hex: '#E0EDA9', usage: 'Texto de link sobre fundo escuro' },
+    ],
+    preview: { background: '#0f1a0b', text: '#F9FBEA', button: '#9FC132', buttonText: '#1f2a0a' },
+  },
+  {
+    role: 'Secondary',
+    description: 'Apoio neutro para ações secundárias e elementos de suporte.',
+    palette: 'Slate dark',
+    swatches: [
+      { label: 'Subtle Background', shade: '900', hex: '#0f172a', usage: 'Fundo alternativo de seções' },
+      { label: 'Background', shade: '800', hex: '#1e293b', usage: 'Fundo de cards secundários' },
+      { label: 'Border', shade: '700', hex: '#334155', usage: 'Divisores e bordas suaves' },
+      { label: 'Solid', shade: '600', hex: '#475569', usage: 'Botão secundário', default: true },
+      { label: 'Solid Hover', shade: '500', hex: '#64748b', usage: 'Hover do botão secundário' },
+      { label: 'Text', shade: '100', hex: '#f1f5f9', usage: 'Texto de apoio sobre fundo escuro' },
+    ],
+    preview: { background: '#1e293b', text: '#f8fafc', button: '#475569', buttonText: '#ffffff' },
+  },
+  {
+    role: 'Neutral',
+    description: 'Escala neutra invertida para superfícies, bordas e hierarquia de texto.',
+    palette: 'Slate dark',
+    swatches: [
+      { label: 'Surface', shade: '950', hex: '#020617', usage: 'Fundo da página / canvas' },
+      { label: 'Surface Raised', shade: '900', hex: '#0f172a', usage: 'Cards e painéis elevados' },
+      { label: 'Border Subtle', shade: '800', hex: '#1e293b', usage: 'Divisores e bordas suaves' },
+      { label: 'Border', shade: '700', hex: '#334155', usage: 'Bordas de cards' },
+      { label: 'Text Subtle', shade: '400', hex: '#94a3b8', usage: 'Labels secundários e captions' },
+      { label: 'Text', shade: '100', hex: '#f1f5f9', usage: 'Corpo do texto', default: true },
+    ],
+    preview: { background: '#0f172a', text: '#f8fafc', button: '#334155', buttonText: '#f8fafc' },
+  },
+  {
+    role: 'Success',
+    description: 'Estados positivos com fundos profundos e texto verde claro.',
+    palette: 'Green dark',
+    swatches: [
+      { label: 'Subtle Background', shade: '950', hex: '#052e16', usage: 'Fundo de alertas de sucesso' },
+      { label: 'Background', shade: '900', hex: '#14532d', usage: 'Chips de status concluído' },
+      { label: 'Border', shade: '700', hex: '#15803d', usage: 'Borda de estados válidos' },
+      { label: 'Solid', shade: '500', hex: '#22c55e', usage: 'Badges e ícones', default: true },
+      { label: 'Solid Hover', shade: '400', hex: '#4ade80', usage: 'Hover de elementos de sucesso' },
+      { label: 'Text', shade: '200', hex: '#bbf7d0', usage: 'Texto em superfícies de sucesso' },
+    ],
+    preview: { background: '#052e16', text: '#dcfce7', button: '#22c55e', buttonText: '#052e16' },
+  },
+  {
+    role: 'Warning',
+    description: 'Avisos com amarelo luminoso e texto escuro no controle acionável.',
+    palette: 'Amber dark',
+    swatches: [
+      { label: 'Subtle Background', shade: '950', hex: '#451a03', usage: 'Fundo de banners de aviso' },
+      { label: 'Background', shade: '900', hex: '#78350f', usage: 'Chips de status pendente' },
+      { label: 'Border', shade: '700', hex: '#b45309', usage: 'Borda de campos com aviso' },
+      { label: 'Solid', shade: '400', hex: '#fbbf24', usage: 'Ícones de aviso e badges', default: true },
+      { label: 'Solid Hover', shade: '300', hex: '#fcd34d', usage: 'Hover de elementos de aviso' },
+      { label: 'Text', shade: '200', hex: '#fde68a', usage: 'Texto em superfícies de aviso' },
+    ],
+    preview: { background: '#451a03', text: '#fef3c7', button: '#fbbf24', buttonText: '#3b2500' },
+  },
+  {
+    role: 'Danger',
+    description: 'Erros e ações destrutivas sem perder legibilidade no fundo escuro.',
+    palette: 'Red dark',
+    swatches: [
+      { label: 'Subtle Background', shade: '950', hex: '#450a0a', usage: 'Fundo de alertas de erro' },
+      { label: 'Background', shade: '900', hex: '#7f1d1d', usage: 'Chips de status de falha' },
+      { label: 'Border', shade: '700', hex: '#b91c1c', usage: 'Borda de campos inválidos' },
+      { label: 'Solid', shade: '500', hex: '#ef4444', usage: 'Botão destrutivo e ícones', default: true },
+      { label: 'Solid Hover', shade: '400', hex: '#f87171', usage: 'Hover de ações destrutivas' },
+      { label: 'Text', shade: '200', hex: '#fecaca', usage: 'Mensagens de erro em campos' },
+    ],
+    preview: { background: '#450a0a', text: '#fee2e2', button: '#ef4444', buttonText: '#ffffff' },
+  },
+  {
+    role: 'Info',
+    description: 'Informação e links com azul claro para manter o contraste no dark theme.',
+    palette: 'Blue dark',
+    swatches: [
+      { label: 'Subtle Background', shade: '950', hex: '#172554', usage: 'Fundo de tooltips e banners' },
+      { label: 'Background', shade: '900', hex: '#1e3a8a', usage: 'Chips de status em andamento' },
+      { label: 'Border', shade: '700', hex: '#1d4ed8', usage: 'Borda de elementos informativos' },
+      { label: 'Solid', shade: '500', hex: '#3b82f6', usage: 'Links e badges informativos', default: true },
+      { label: 'Solid Hover', shade: '400', hex: '#60a5fa', usage: 'Hover de links e ações info' },
+      { label: 'Text', shade: '200', hex: '#bfdbfe', usage: 'Texto informativo sobre fundo escuro' },
+    ],
+    preview: { background: '#172554', text: '#dbeafe', button: '#3b82f6', buttonText: '#ffffff' },
+  },
+]
+
 export default function ColorsPage() {
+  const renderSemanticRoles = (roles: SemanticRole[]) => (
+    <div className="space-y-10">
+      {roles.map((role) => {
+        const accent = roleAccent[role.role]
+        const solid = role.swatches.find((swatch) => swatch.label === 'Solid') ?? role.swatches[3]
+        const text = role.swatches.find((swatch) => swatch.label === 'Text') ?? role.swatches[role.swatches.length - 1]
+        const preview = role.preview ?? {
+          background: role.swatches[0].hex,
+          text: text.hex,
+          button: solid.hex,
+          buttonText: accent.text,
+        }
+
+        return (
+          <div key={role.role}>
+            <div className="flex items-start gap-4 mb-4">
+              <span
+                className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold shrink-0"
+                style={{ backgroundColor: accent.bg, color: accent.text }}
+              >
+                {role.role}
+              </span>
+              <div>
+                <p className="text-sm text-foreground/60 pt-1">{role.description}</p>
+                <p className="text-xs text-foreground/40 mt-1">Escala: {role.palette}</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+              {role.swatches.map((swatch) => (
+                <Card
+                  key={swatch.label}
+                  className="overflow-hidden pt-0 gap-0"
+                  style={swatch.default ? { outline: `2px solid ${accent.bg}`, outlineOffset: '2px' } : {}}
+                >
+                  <div className="h-16 w-full" style={{ backgroundColor: swatch.hex }} />
+                  <div className="p-2.5">
+                    <p className="font-semibold text-xs text-foreground leading-tight">{swatch.label}</p>
+                    <p className="text-[11px] text-foreground/50 font-mono mt-0.5">{swatch.shade}</p>
+                    <p className="text-[11px] text-foreground/40 font-mono">{swatch.hex}</p>
+                    <p className="text-[10px] text-foreground/40 mt-1 leading-tight">{swatch.usage}</p>
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+            <div
+              className="mt-4 rounded-xl border border-border p-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+              style={{ backgroundColor: preview.background, color: preview.text }}
+            >
+              <div>
+                <p className="text-xs uppercase tracking-wide font-semibold opacity-70">Amostra de contraste</p>
+                <p className="text-sm font-medium mt-1">Texto sobre {preview.background}</p>
+              </div>
+              <button
+                type="button"
+                className="rounded-md px-3 py-2 text-sm font-semibold transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2"
+                style={{ backgroundColor: preview.button, color: preview.buttonText }}
+              >
+                Ação primária
+              </button>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+
   return (
     <div className="max-w-5xl mx-auto py-12 px-4">
       {/* Header */}
@@ -253,52 +444,14 @@ export default function ColorsPage() {
           shade usar.
         </p>
 
-        <div className="space-y-10">
-          {semanticRoles.map((role) => {
-            const accent = roleAccent[role.role]
-            return (
-              <div key={role.role}>
-                {/* Role header */}
-                <div className="flex items-start gap-4 mb-4">
-                  <span
-                    className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold shrink-0"
-                    style={{ backgroundColor: accent.bg, color: accent.text }}
-                  >
-                    {role.role}
-                  </span>
-                  <p className="text-sm text-foreground/60 pt-1">{role.description}</p>
-                </div>
-
-                {/* Swatches */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-                  {role.swatches.map((swatch) => (
-                    <Card
-                      key={swatch.label}
-                      className="overflow-hidden pt-0 gap-0"
-                      style={swatch.default ? { outline: `2px solid ${accent.bg}`, outlineOffset: '2px' } : {}}
-                    >
-                      <div className="h-16 w-full" style={{ backgroundColor: swatch.hex }} />
-                      <div className="p-2.5">
-                        <p className="font-semibold text-xs text-foreground leading-tight">
-                          {swatch.label}
-                        </p>
-                        <p className="text-[11px] text-foreground/50 font-mono mt-0.5">
-                          {swatch.shade}
-                        </p>
-                        <p className="text-[11px] text-foreground/40 font-mono">
-                          {swatch.hex}
-                        </p>
-                        <p className="text-[10px] text-foreground/40 mt-1 leading-tight">
-                          {swatch.usage}
-                        </p>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            )
-          })}
-        </div>
+        <Tabs defaultValue="light" className="w-full">
+          <TabsList className="mb-8">
+            <TabsTrigger value="light">Cores light theme</TabsTrigger>
+            <TabsTrigger value="dark">Cores dark theme</TabsTrigger>
+          </TabsList>
+          <TabsContent value="light">{renderSemanticRoles(semanticRoles)}</TabsContent>
+          <TabsContent value="dark">{renderSemanticRoles(darkSemanticRoles)}</TabsContent>
+        </Tabs>
       </section>
 
       {/* ── 2. Full palettes ── */}
