@@ -4,124 +4,175 @@ import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-// ─── Semantic color roles ────────────────────────────────────────────────────
-// Pattern established by Material Design 3, Atlassian Design System,
-// IBM Carbon, and Radix UI: each role exposes a consistent set of steps
-// so product teams can wire up interactions without picking raw hex values.
+// ─── Camada semântica ────────────────────────────────────────────────────────
+// Cada papel expõe os MESMOS 6 steps. O nome do token é estável entre light e
+// dark — só o valor muda. Assim um componente escrito com var(--danger-bg-subtle)
+// funciona nos dois temas sem condicional, e a doc nunca mente sobre o valor.
+//
+// Padrão estabelecido por Radix UI, Atlassian Design System e IBM Carbon.
 
-const semanticRoles = [
+type Step = {
+  token: string
+  role: string
+  description: string
+  light: { shade: string; hex: string }
+  dark: { shade: string; hex: string }
+  usage: string
+  default?: boolean
+}
+
+type SemanticRole = {
+  role: string
+  description: string
+  paletteLight: string
+  paletteDark: string
+  steps: Step[]
+}
+
+// Definição dos 6 steps — a "gramática" do sistema.
+const stepDefinitions = [
+  {
+    token: 'bg-subtle',
+    role: 'Subtle Background',
+    description: 'Fundo mais claro do papel. Base de banners, alertas e chips selecionados.',
+  },
+  {
+    token: 'bg',
+    role: 'Background',
+    description: 'Um passo acima do subtle. Hover de superfície e fundo de chips.',
+  },
+  {
+    token: 'border',
+    role: 'Border',
+    description: 'Bordas de input, outlines e divisores dentro do papel.',
+  },
+  {
+    token: 'solid',
+    role: 'Solid',
+    description: 'Preenchimento sólido: botão, ícone e badge. Carrega a cor do papel.',
+  },
+  {
+    token: 'solid-hover',
+    role: 'Solid Hover',
+    description: 'Estado de hover e press do solid.',
+  },
+  {
+    token: 'text',
+    role: 'Text',
+    description: 'Texto e ícone sobre bg-subtle ou bg. Validado para 4.5:1.',
+  },
+]
+
+const semanticRoles: SemanticRole[] = [
   {
     role: 'Primary',
-    description: 'Cor principal da marca. Usada em ações primárias, links e estados de foco.',
-    palette: 'Confraria',
-    swatches: [
-      { label: 'Subtle Background', shade: '50',  hex: '#F9FBEA', usage: 'Fundo de banners, chips selecionados' },
-      { label: 'Background',        shade: '100', hex: '#F0F5D2', usage: 'Hover em superfícies subtis' },
-      { label: 'Border',            shade: '300', hex: '#C9DF77', usage: 'Bordas de inputs, outlines' },
-      { label: 'Solid',             shade: '500', hex: '#9FC132', usage: 'Botão primário, ícones de destaque', default: true },
-      { label: 'Solid Hover',       shade: '600', hex: '#728F21', usage: 'Hover do botão primário' },
-      { label: 'Text',              shade: '700', hex: '#576D1E', usage: 'Texto de link sobre fundo claro' },
+    description: 'Cor principal da marca. Ações primárias, links e estados de foco.',
+    paletteLight: 'Confraria',
+    paletteDark: 'Confraria dark',
+    steps: [
+      { token: 'bg-subtle',   role: 'Subtle Background', description: '', light: { shade: '50',  hex: '#F9FBEA' }, dark: { shade: '50',  hex: '#0f1a0b' }, usage: 'Fundo de banners, chips selecionados' },
+      { token: 'bg',          role: 'Background',        description: '', light: { shade: '100', hex: '#F0F5D2' }, dark: { shade: '100', hex: '#14220c' }, usage: 'Hover em superfícies subtis' },
+      { token: 'border',      role: 'Border',            description: '', light: { shade: '300', hex: '#C9DF77' }, dark: { shade: '400', hex: '#2f4f16' }, usage: 'Bordas de inputs, outlines' },
+      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '500', hex: '#9FC132' }, dark: { shade: '500', hex: '#9FC132' }, usage: 'Botão primário, ícones de destaque', default: true },
+      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '600', hex: '#728F21' }, dark: { shade: '400', hex: '#B1CE4D' }, usage: 'Hover do botão primário' },
+      { token: 'text',        role: 'Text',              description: '', light: { shade: '700', hex: '#576D1E' }, dark: { shade: '200', hex: '#E0EDA9' }, usage: 'Texto de link sobre o fundo do papel' },
     ],
   },
   {
     role: 'Secondary',
-    description: 'Suporta a cor primária. Usada em ações secundárias, tags e elementos de apoio.',
-    palette: 'Slate',
-    swatches: [
-      { label: 'Subtle Background', shade: '50',  hex: '#f8fafc', usage: 'Fundo alternativo de seções' },
-      { label: 'Background',        shade: '100', hex: '#f1f5f9', usage: 'Fundo de cards secundários' },
-      { label: 'Border',            shade: '300', hex: '#cbd5e1', usage: 'Divisores, bordas suaves' },
-      { label: 'Solid',             shade: '600', hex: '#475569', usage: 'Botão secundário, ícones secundários', default: true },
-      { label: 'Solid Hover',       shade: '700', hex: '#334155', usage: 'Hover do botão secundário' },
-      { label: 'Text',              shade: '800', hex: '#1e293b', usage: 'Texto de apoio sobre fundo claro' },
+    description: 'Apoia a primária. Ações secundárias, tags e elementos de suporte.',
+    paletteLight: 'Slate',
+    paletteDark: 'Slate dark',
+    steps: [
+      { token: 'bg-subtle',   role: 'Subtle Background', description: '', light: { shade: '50',  hex: '#f8fafc' }, dark: { shade: '900', hex: '#0f172a' }, usage: 'Fundo alternativo de seções' },
+      { token: 'bg',          role: 'Background',        description: '', light: { shade: '100', hex: '#f1f5f9' }, dark: { shade: '800', hex: '#1e293b' }, usage: 'Fundo de cards secundários' },
+      { token: 'border',      role: 'Border',            description: '', light: { shade: '300', hex: '#cbd5e1' }, dark: { shade: '700', hex: '#334155' }, usage: 'Divisores, bordas suaves' },
+      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '600', hex: '#475569' }, dark: { shade: '600', hex: '#475569' }, usage: 'Botão secundário, ícones', default: true },
+      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '700', hex: '#334155' }, dark: { shade: '500', hex: '#64748b' }, usage: 'Hover do botão secundário' },
+      { token: 'text',        role: 'Text',              description: '', light: { shade: '800', hex: '#1e293b' }, dark: { shade: '100', hex: '#f1f5f9' }, usage: 'Texto de apoio sobre o fundo do papel' },
     ],
   },
   {
     role: 'Neutral',
-    description: 'Escala neutra para texto, superfícies e bordas. Base de toda a interface.',
-    palette: 'Slate',
-    swatches: [
-      { label: 'Surface',           shade: '50',  hex: '#f8fafc', usage: 'Fundo da página / canvas' },
-      { label: 'Surface Raised',    shade: '100', hex: '#f1f5f9', usage: 'Cards, painéis elevados' },
-      { label: 'Border Subtle',     shade: '200', hex: '#e2e8f0', usage: 'Divisores, bordas de inputs' },
-      { label: 'Border',            shade: '300', hex: '#cbd5e1', usage: 'Bordas de cards, separadores' },
-      { label: 'Text Placeholder',  shade: '400', hex: '#94a3b8', usage: 'Placeholder de inputs' },
-      { label: 'Text Subtle',       shade: '500', hex: '#64748b', usage: 'Labels secundários, captions' },
-      { label: 'Text',              shade: '700', hex: '#334155', usage: 'Corpo do texto', default: true },
-      { label: 'Text Strong',       shade: '900', hex: '#0f172a', usage: 'Títulos, texto de alto contraste' },
+    description: 'Escala neutra da interface: superfícies, bordas e hierarquia de texto.',
+    paletteLight: 'Slate',
+    paletteDark: 'Slate dark',
+    steps: [
+      { token: 'bg-subtle',   role: 'Subtle Background', description: '', light: { shade: '50',  hex: '#f8fafc' }, dark: { shade: '950', hex: '#020617' }, usage: 'Fundo da página / canvas' },
+      { token: 'bg',          role: 'Background',        description: '', light: { shade: '100', hex: '#f1f5f9' }, dark: { shade: '900', hex: '#0f172a' }, usage: 'Cards, painéis elevados' },
+      { token: 'border',      role: 'Border',            description: '', light: { shade: '300', hex: '#cbd5e1' }, dark: { shade: '700', hex: '#334155' }, usage: 'Bordas de cards, separadores' },
+      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '500', hex: '#64748b' }, dark: { shade: '500', hex: '#64748b' }, usage: 'Ícones neutros, placeholders fortes' },
+      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '600', hex: '#475569' }, dark: { shade: '400', hex: '#94a3b8' }, usage: 'Hover de elementos neutros' },
+      { token: 'text',        role: 'Text',              description: '', light: { shade: '700', hex: '#334155' }, dark: { shade: '100', hex: '#f1f5f9' }, usage: 'Corpo do texto', default: true },
     ],
   },
   {
     role: 'Success',
-    description: 'Indica conclusão, aprovação ou estados positivos.',
-    palette: 'Green',
-    swatches: [
-      { label: 'Subtle Background', shade: '50',  hex: '#f0fdf4', usage: 'Fundo de alertas de sucesso' },
-      { label: 'Background',        shade: '100', hex: '#dcfce7', usage: 'Chips de status: concluído' },
-      { label: 'Border',            shade: '300', hex: '#86efac', usage: 'Borda de inputs válidos' },
-      { label: 'Solid',             shade: '600', hex: '#16a34a', usage: 'Badges de sucesso, ícones', default: true },
-      { label: 'Solid Hover',       shade: '700', hex: '#15803d', usage: 'Hover de elementos de sucesso' },
-      { label: 'Text',              shade: '800', hex: '#166534', usage: 'Texto sobre fundo de sucesso' },
+    description: 'Conclusão, aprovação e estados positivos.',
+    paletteLight: 'Green',
+    paletteDark: 'Green dark',
+    steps: [
+      { token: 'bg-subtle',   role: 'Subtle Background', description: '', light: { shade: '50',  hex: '#f0fdf4' }, dark: { shade: '950', hex: '#052e16' }, usage: 'Fundo de alertas de sucesso' },
+      { token: 'bg',          role: 'Background',        description: '', light: { shade: '100', hex: '#dcfce7' }, dark: { shade: '900', hex: '#14532d' }, usage: 'Chips de status: concluído' },
+      { token: 'border',      role: 'Border',            description: '', light: { shade: '300', hex: '#86efac' }, dark: { shade: '700', hex: '#15803d' }, usage: 'Borda de inputs válidos' },
+      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '600', hex: '#16a34a' }, dark: { shade: '500', hex: '#22c55e' }, usage: 'Badges de sucesso, ícones', default: true },
+      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '700', hex: '#15803d' }, dark: { shade: '400', hex: '#4ade80' }, usage: 'Hover de elementos de sucesso' },
+      { token: 'text',        role: 'Text',              description: '', light: { shade: '800', hex: '#166534' }, dark: { shade: '200', hex: '#bbf7d0' }, usage: 'Texto sobre fundo de sucesso' },
     ],
   },
   {
     role: 'Warning',
-    description: 'Atenção e avisos. Indica estados que requerem ação ou revisão.',
-    palette: 'Amber',
-    swatches: [
-      { label: 'Subtle Background', shade: '50',  hex: '#fffbeb', usage: 'Fundo de banners de aviso' },
-      { label: 'Background',        shade: '100', hex: '#fef3c7', usage: 'Chips de status: pendente' },
-      { label: 'Border',            shade: '300', hex: '#fcd34d', usage: 'Borda de campos com aviso' },
-      { label: 'Solid',             shade: '500', hex: '#f59e0b', usage: 'Ícones de aviso, badges', default: true },
-      { label: 'Solid Hover',       shade: '600', hex: '#d97706', usage: 'Hover de elementos de aviso' },
-      { label: 'Text',              shade: '800', hex: '#92400e', usage: 'Texto sobre fundo de aviso' },
+    description: 'Atenção e avisos. Estados que pedem ação ou revisão.',
+    paletteLight: 'Amber',
+    paletteDark: 'Amber dark',
+    steps: [
+      { token: 'bg-subtle',   role: 'Subtle Background', description: '', light: { shade: '50',  hex: '#fffbeb' }, dark: { shade: '950', hex: '#451a03' }, usage: 'Fundo de banners de aviso' },
+      { token: 'bg',          role: 'Background',        description: '', light: { shade: '100', hex: '#fef3c7' }, dark: { shade: '900', hex: '#78350f' }, usage: 'Chips de status: pendente' },
+      { token: 'border',      role: 'Border',            description: '', light: { shade: '300', hex: '#fcd34d' }, dark: { shade: '700', hex: '#b45309' }, usage: 'Borda de campos com aviso' },
+      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '500', hex: '#f59e0b' }, dark: { shade: '400', hex: '#fbbf24' }, usage: 'Ícones de aviso, badges', default: true },
+      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '600', hex: '#d97706' }, dark: { shade: '300', hex: '#fcd34d' }, usage: 'Hover de elementos de aviso' },
+      { token: 'text',        role: 'Text',              description: '', light: { shade: '800', hex: '#92400e' }, dark: { shade: '200', hex: '#fde68a' }, usage: 'Texto sobre fundo de aviso' },
     ],
   },
   {
     role: 'Danger',
     description: 'Erros, ações destrutivas e estados críticos.',
-    palette: 'Red',
-    swatches: [
-      { label: 'Subtle Background', shade: '50',  hex: '#fef2f2', usage: 'Fundo de alertas de erro' },
-      { label: 'Background',        shade: '100', hex: '#fee2e2', usage: 'Chips de status: falha' },
-      { label: 'Border',            shade: '300', hex: '#fca5a5', usage: 'Borda de inputs inválidos' },
-      { label: 'Solid',             shade: '600', hex: '#dc2626', usage: 'Botão destrutivo, ícones de erro', default: true },
-      { label: 'Solid Hover',       shade: '700', hex: '#b91c1c', usage: 'Hover de ações destrutivas' },
-      { label: 'Text',              shade: '800', hex: '#991b1b', usage: 'Mensagens de erro em campos' },
+    paletteLight: 'Red',
+    paletteDark: 'Red dark',
+    steps: [
+      { token: 'bg-subtle',   role: 'Subtle Background', description: '', light: { shade: '50',  hex: '#fef2f2' }, dark: { shade: '950', hex: '#450a0a' }, usage: 'Fundo de alertas de erro' },
+      { token: 'bg',          role: 'Background',        description: '', light: { shade: '100', hex: '#fee2e2' }, dark: { shade: '900', hex: '#7f1d1d' }, usage: 'Chips de status: falha' },
+      { token: 'border',      role: 'Border',            description: '', light: { shade: '300', hex: '#fca5a5' }, dark: { shade: '700', hex: '#b91c1c' }, usage: 'Borda de inputs inválidos' },
+      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '600', hex: '#dc2626' }, dark: { shade: '500', hex: '#ef4444' }, usage: 'Botão destrutivo, ícones de erro', default: true },
+      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '700', hex: '#b91c1c' }, dark: { shade: '400', hex: '#f87171' }, usage: 'Hover de ações destrutivas' },
+      { token: 'text',        role: 'Text',              description: '', light: { shade: '800', hex: '#991b1b' }, dark: { shade: '200', hex: '#fecaca' }, usage: 'Mensagens de erro em campos' },
     ],
   },
   {
     role: 'Info',
     description: 'Informação neutra, dicas e estados de carregamento.',
-    palette: 'Blue',
-    swatches: [
-      { label: 'Subtle Background', shade: '50',  hex: '#eff6ff', usage: 'Fundo de tooltips, banners info' },
-      { label: 'Background',        shade: '100', hex: '#dbeafe', usage: 'Chips de status: em andamento' },
-      { label: 'Border',            shade: '300', hex: '#93c5fd', usage: 'Borda de elementos informativos' },
-      { label: 'Solid',             shade: '600', hex: '#2563eb', usage: 'Links, badges informativos', default: true },
-      { label: 'Solid Hover',       shade: '700', hex: '#1d4ed8', usage: 'Hover de links e ações info' },
-      { label: 'Text',              shade: '800', hex: '#1e40af', usage: 'Texto de link sobre fundo claro' },
+    paletteLight: 'Blue',
+    paletteDark: 'Blue dark',
+    steps: [
+      { token: 'bg-subtle',   role: 'Subtle Background', description: '', light: { shade: '50',  hex: '#eff6ff' }, dark: { shade: '950', hex: '#172554' }, usage: 'Fundo de tooltips, banners info' },
+      { token: 'bg',          role: 'Background',        description: '', light: { shade: '100', hex: '#dbeafe' }, dark: { shade: '900', hex: '#1e3a8a' }, usage: 'Chips de status: em andamento' },
+      { token: 'border',      role: 'Border',            description: '', light: { shade: '300', hex: '#93c5fd' }, dark: { shade: '700', hex: '#1d4ed8' }, usage: 'Borda de elementos informativos' },
+      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '600', hex: '#2563eb' }, dark: { shade: '500', hex: '#3b82f6' }, usage: 'Links, badges informativos', default: true },
+      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '700', hex: '#1d4ed8' }, dark: { shade: '400', hex: '#60a5fa' }, usage: 'Hover de links e ações info' },
+      { token: 'text',        role: 'Text',              description: '', light: { shade: '800', hex: '#1e40af' }, dark: { shade: '200', hex: '#bfdbfe' }, usage: 'Texto informativo sobre o fundo do papel' },
     ],
   },
 ]
 
-type SemanticRole = {
-  role: string
-  description: string
-  palette: string
-  swatches: Array<{
-    label: string
-    shade: string
-    hex: string
-    usage: string
-    default?: boolean
-  }>
-  preview?: {
-    background: string
-    text: string
-    button: string
-    buttonText: string
-  }
+// Prefixo de token por papel: Primary → --primary-*
+const rolePrefix: Record<string, string> = {
+  Primary: 'primary',
+  Secondary: 'secondary',
+  Neutral: 'neutral',
+  Success: 'success',
+  Warning: 'warning',
+  Danger: 'danger',
+  Info: 'info',
 }
 
 // ─── Full raw palettes ───────────────────────────────────────────────────────
@@ -241,6 +292,7 @@ const palettes = [
   },
 ]
 
+
 // ─── Role badge colors ───────────────────────────────────────────────────────
 const roleAccent: Record<string, { bg: string; text: string }> = {
   Primary:   { bg: '#9FC132', text: '#1f2a0a' },
@@ -252,120 +304,21 @@ const roleAccent: Record<string, { bg: string; text: string }> = {
   Info:      { bg: '#2563eb', text: '#fff' },
 }
 
-const darkSemanticRoles = [
-  {
-    role: 'Primary',
-    description: 'Acento de marca preservado no dark theme, com superfícies verdes profundas.',
-    palette: 'Confraria dark',
-    swatches: [
-      { label: 'Subtle Background', shade: '50', hex: '#0f1a0b', usage: 'Fundo de banners e chips selecionados' },
-      { label: 'Background', shade: '100', hex: '#14220c', usage: 'Hover em superfícies subtis' },
-      { label: 'Border', shade: '400', hex: '#2f4f16', usage: 'Bordas de inputs e outlines' },
-      { label: 'Solid', shade: '500', hex: '#9FC132', usage: 'Botão primário, ícones de destaque', default: true },
-      { label: 'Solid Hover', shade: '400', hex: '#B1CE4D', usage: 'Hover do botão primário' },
-      { label: 'Text', shade: '200', hex: '#E0EDA9', usage: 'Texto de link sobre fundo escuro' },
-    ],
-    preview: { background: '#0f1a0b', text: '#F9FBEA', button: '#9FC132', buttonText: '#1f2a0a' },
-  },
-  {
-    role: 'Secondary',
-    description: 'Apoio neutro para ações secundárias e elementos de suporte.',
-    palette: 'Slate dark',
-    swatches: [
-      { label: 'Subtle Background', shade: '900', hex: '#0f172a', usage: 'Fundo alternativo de seções' },
-      { label: 'Background', shade: '800', hex: '#1e293b', usage: 'Fundo de cards secundários' },
-      { label: 'Border', shade: '700', hex: '#334155', usage: 'Divisores e bordas suaves' },
-      { label: 'Solid', shade: '600', hex: '#475569', usage: 'Botão secundário', default: true },
-      { label: 'Solid Hover', shade: '500', hex: '#64748b', usage: 'Hover do botão secundário' },
-      { label: 'Text', shade: '100', hex: '#f1f5f9', usage: 'Texto de apoio sobre fundo escuro' },
-    ],
-    preview: { background: '#1e293b', text: '#f8fafc', button: '#475569', buttonText: '#ffffff' },
-  },
-  {
-    role: 'Neutral',
-    description: 'Escala neutra invertida para superfícies, bordas e hierarquia de texto.',
-    palette: 'Slate dark',
-    swatches: [
-      { label: 'Surface', shade: '950', hex: '#020617', usage: 'Fundo da página / canvas' },
-      { label: 'Surface Raised', shade: '900', hex: '#0f172a', usage: 'Cards e painéis elevados' },
-      { label: 'Border Subtle', shade: '800', hex: '#1e293b', usage: 'Divisores e bordas suaves' },
-      { label: 'Border', shade: '700', hex: '#334155', usage: 'Bordas de cards' },
-      { label: 'Text Subtle', shade: '400', hex: '#94a3b8', usage: 'Labels secundários e captions' },
-      { label: 'Text', shade: '100', hex: '#f1f5f9', usage: 'Corpo do texto', default: true },
-    ],
-    preview: { background: '#0f172a', text: '#f8fafc', button: '#334155', buttonText: '#f8fafc' },
-  },
-  {
-    role: 'Success',
-    description: 'Estados positivos com fundos profundos e texto verde claro.',
-    palette: 'Green dark',
-    swatches: [
-      { label: 'Subtle Background', shade: '950', hex: '#052e16', usage: 'Fundo de alertas de sucesso' },
-      { label: 'Background', shade: '900', hex: '#14532d', usage: 'Chips de status concluído' },
-      { label: 'Border', shade: '700', hex: '#15803d', usage: 'Borda de estados válidos' },
-      { label: 'Solid', shade: '500', hex: '#22c55e', usage: 'Badges e ícones', default: true },
-      { label: 'Solid Hover', shade: '400', hex: '#4ade80', usage: 'Hover de elementos de sucesso' },
-      { label: 'Text', shade: '200', hex: '#bbf7d0', usage: 'Texto em superfícies de sucesso' },
-    ],
-    preview: { background: '#052e16', text: '#dcfce7', button: '#22c55e', buttonText: '#052e16' },
-  },
-  {
-    role: 'Warning',
-    description: 'Avisos com amarelo luminoso e texto escuro no controle acionável.',
-    palette: 'Amber dark',
-    swatches: [
-      { label: 'Subtle Background', shade: '950', hex: '#451a03', usage: 'Fundo de banners de aviso' },
-      { label: 'Background', shade: '900', hex: '#78350f', usage: 'Chips de status pendente' },
-      { label: 'Border', shade: '700', hex: '#b45309', usage: 'Borda de campos com aviso' },
-      { label: 'Solid', shade: '400', hex: '#fbbf24', usage: 'Ícones de aviso e badges', default: true },
-      { label: 'Solid Hover', shade: '300', hex: '#fcd34d', usage: 'Hover de elementos de aviso' },
-      { label: 'Text', shade: '200', hex: '#fde68a', usage: 'Texto em superfícies de aviso' },
-    ],
-    preview: { background: '#451a03', text: '#fef3c7', button: '#fbbf24', buttonText: '#3b2500' },
-  },
-  {
-    role: 'Danger',
-    description: 'Erros e ações destrutivas sem perder legibilidade no fundo escuro.',
-    palette: 'Red dark',
-    swatches: [
-      { label: 'Subtle Background', shade: '950', hex: '#450a0a', usage: 'Fundo de alertas de erro' },
-      { label: 'Background', shade: '900', hex: '#7f1d1d', usage: 'Chips de status de falha' },
-      { label: 'Border', shade: '700', hex: '#b91c1c', usage: 'Borda de campos inválidos' },
-      { label: 'Solid', shade: '500', hex: '#ef4444', usage: 'Botão destrutivo e ícones', default: true },
-      { label: 'Solid Hover', shade: '400', hex: '#f87171', usage: 'Hover de ações destrutivas' },
-      { label: 'Text', shade: '200', hex: '#fecaca', usage: 'Mensagens de erro em campos' },
-    ],
-    preview: { background: '#450a0a', text: '#fee2e2', button: '#ef4444', buttonText: '#ffffff' },
-  },
-  {
-    role: 'Info',
-    description: 'Informação e links com azul claro para manter o contraste no dark theme.',
-    palette: 'Blue dark',
-    swatches: [
-      { label: 'Subtle Background', shade: '950', hex: '#172554', usage: 'Fundo de tooltips e banners' },
-      { label: 'Background', shade: '900', hex: '#1e3a8a', usage: 'Chips de status em andamento' },
-      { label: 'Border', shade: '700', hex: '#1d4ed8', usage: 'Borda de elementos informativos' },
-      { label: 'Solid', shade: '500', hex: '#3b82f6', usage: 'Links e badges informativos', default: true },
-      { label: 'Solid Hover', shade: '400', hex: '#60a5fa', usage: 'Hover de links e ações info' },
-      { label: 'Text', shade: '200', hex: '#bfdbfe', usage: 'Texto informativo sobre fundo escuro' },
-    ],
-    preview: { background: '#172554', text: '#dbeafe', button: '#3b82f6', buttonText: '#ffffff' },
-  },
-]
+type Theme = 'light' | 'dark'
 
 export default function ColorsPage() {
-  const renderSemanticRoles = (roles: SemanticRole[]) => (
-    <div className="space-y-10">
-      {roles.map((role) => {
+  const renderSemanticRoles = (theme: Theme) => (
+    <div className="space-y-12">
+      {semanticRoles.map((role) => {
         const accent = roleAccent[role.role]
-        const solid = role.swatches.find((swatch) => swatch.label === 'Solid') ?? role.swatches[3]
-        const text = role.swatches.find((swatch) => swatch.label === 'Text') ?? role.swatches[role.swatches.length - 1]
-        const preview = role.preview ?? {
-          background: role.swatches[0].hex,
-          text: text.hex,
-          button: solid.hex,
-          buttonText: accent.text,
-        }
+        const prefix = rolePrefix[role.role]
+        const value = (step: Step) => step[theme]
+
+        const bgSubtle = role.steps.find((s) => s.token === 'bg-subtle')!
+        const solid = role.steps.find((s) => s.token === 'solid')!
+        const solidHover = role.steps.find((s) => s.token === 'solid-hover')!
+        const border = role.steps.find((s) => s.token === 'border')!
+        const text = role.steps.find((s) => s.token === 'text')!
 
         return (
           <div key={role.role}>
@@ -378,42 +331,62 @@ export default function ColorsPage() {
               </span>
               <div>
                 <p className="text-sm text-foreground/60 pt-1">{role.description}</p>
-                <p className="text-xs text-foreground/40 mt-1">Escala: {role.palette}</p>
+                <p className="text-xs text-foreground/40 mt-1 font-mono">
+                  --{prefix}-*  ·  escala: {theme === 'light' ? role.paletteLight : role.paletteDark}
+                </p>
               </div>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-              {role.swatches.map((swatch) => (
+              {role.steps.map((step) => (
                 <Card
-                  key={swatch.label}
+                  key={step.token}
                   className="overflow-hidden pt-0 gap-0"
-                  style={swatch.default ? { outline: `2px solid ${accent.bg}`, outlineOffset: '2px' } : {}}
+                  style={step.default ? { outline: `2px solid ${accent.bg}`, outlineOffset: '2px' } : {}}
                 >
-                  <div className="h-16 w-full" style={{ backgroundColor: swatch.hex }} />
+                  <div className="h-16 w-full" style={{ backgroundColor: value(step).hex }} />
                   <div className="p-2.5">
-                    <p className="font-semibold text-xs text-foreground leading-tight">{swatch.label}</p>
-                    <p className="text-[11px] text-foreground/50 font-mono mt-0.5">{swatch.shade}</p>
-                    <p className="text-[11px] text-foreground/40 font-mono">{swatch.hex}</p>
-                    <p className="text-[10px] text-foreground/40 mt-1 leading-tight">{swatch.usage}</p>
+                    {/* O nome do token vem primeiro: é ele que o dev escreve */}
+                    <p className="font-mono text-[11px] font-semibold text-foreground leading-tight break-all">
+                      --{prefix}-{step.token}
+                    </p>
+                    <p className="text-[11px] text-foreground/50 mt-1">{step.role}</p>
+                    <p className="text-[10px] text-foreground/40 font-mono mt-0.5">
+                      {value(step).shade} · {value(step).hex}
+                    </p>
+                    <p className="text-[10px] text-foreground/40 mt-1 leading-tight">{step.usage}</p>
                   </div>
                 </Card>
               ))}
             </div>
 
+            {/* Amostra: os steps combinados como apareceriam num componente real */}
             <div
-              className="mt-4 rounded-xl border border-border p-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
-              style={{ backgroundColor: preview.background, color: preview.text }}
+              className="mt-4 rounded-xl p-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border"
+              style={{
+                backgroundColor: value(bgSubtle).hex,
+                color: value(text).hex,
+                borderColor: value(border).hex,
+              }}
             >
               <div>
-                <p className="text-xs uppercase tracking-wide font-semibold opacity-70">Amostra de contraste</p>
-                <p className="text-sm font-medium mt-1">Texto sobre {preview.background}</p>
+                <p className="text-xs uppercase tracking-wide font-semibold opacity-70">
+                  bg-subtle + border + text
+                </p>
+                <p className="text-sm font-medium mt-1">
+                  Texto em --{prefix}-text sobre --{prefix}-bg-subtle
+                </p>
               </div>
               <button
                 type="button"
-                className="rounded-md px-3 py-2 text-sm font-semibold transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2"
-                style={{ backgroundColor: preview.button, color: preview.buttonText }}
+                className="rounded-md px-3 py-2 text-sm font-semibold transition-opacity hover:opacity-85"
+                style={{
+                  backgroundColor: value(solid).hex,
+                  color: role.role === 'Warning' || role.role === 'Primary' ? '#1f2a0a' : '#fff',
+                }}
+                title={`hover: ${value(solidHover).hex}`}
               >
-                Ação primária
+                Ação
               </button>
             </div>
           </div>
@@ -430,36 +403,69 @@ export default function ColorsPage() {
         <h1 className="text-4xl font-bold mb-3 text-foreground">Cores</h1>
         <p className="text-lg text-foreground/60 max-w-2xl">
           Sistema de cores do Confraria Design System. Organizado em papéis semânticos —
-          como nos principais DSs de mercado (Material Design 3, Atlassian, IBM Carbon,
-          Radix UI) — para que a equipe use tokens com intenção, não valores arbitrários.
+          como nos principais DSs de mercado (Radix UI, Atlassian, IBM Carbon) — para que a
+          equipe use tokens com intenção, não valores arbitrários.
         </p>
       </div>
 
-      {/* ── 1. Semantic roles ── */}
+      {/* ── 1. A gramática do sistema ── */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-bold mb-2 text-foreground">A gramática dos tokens</h2>
+        <p className="text-foreground/60 mb-6 max-w-2xl">
+          Todo papel semântico expõe os mesmos 6 steps, com os mesmos nomes. O nome do token
+          não muda entre light e dark — só o valor. Isso significa que um componente escrito
+          com <code className="font-mono text-sm">var(--danger-bg-subtle)</code> funciona nos
+          dois temas sem nenhuma condicional.
+        </p>
+
+        <Card className="p-6">
+          <div className="space-y-4">
+            {stepDefinitions.map((step) => (
+              <div key={step.token} className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
+                <code className="font-mono text-sm font-semibold text-foreground shrink-0 sm:w-40">
+                  {step.token}
+                </code>
+                <div>
+                  <p className="text-sm font-medium text-foreground">{step.role}</p>
+                  <p className="text-sm text-foreground/60">{step.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <p className="text-sm text-foreground/50 mt-4">
+          Lido como fórmula: <code className="font-mono">--[papel]-[step]</code>. Sete papéis
+          × seis steps = 42 tokens semânticos, todos previsíveis.
+        </p>
+      </section>
+
+      {/* ── 2. Papéis semânticos ── */}
       <section className="mb-16">
         <h2 className="text-2xl font-bold mb-2 text-foreground">Papéis semânticos</h2>
         <p className="text-foreground/60 mb-8 max-w-2xl">
-          Cada papel define um conjunto fixo de passos — Background, Border, Solid,
-          Hover e Text — para que qualquer componente possa ser construído sem adivinhar qual
-          shade usar.
+          Cada card mostra o token que você escreve no código e, abaixo, o valor que ele
+          resolve no tema selecionado. O shade aparece como referência — não como nome.
         </p>
 
         <Tabs defaultValue="light" className="w-full">
           <TabsList className="mb-8">
-            <TabsTrigger value="light">Cores light theme</TabsTrigger>
-            <TabsTrigger value="dark">Cores dark theme</TabsTrigger>
+            <TabsTrigger value="light">Light theme</TabsTrigger>
+            <TabsTrigger value="dark">Dark theme</TabsTrigger>
           </TabsList>
-          <TabsContent value="light">{renderSemanticRoles(semanticRoles)}</TabsContent>
-          <TabsContent value="dark">{renderSemanticRoles(darkSemanticRoles)}</TabsContent>
+          <TabsContent value="light">{renderSemanticRoles('light')}</TabsContent>
+          <TabsContent value="dark">{renderSemanticRoles('dark')}</TabsContent>
         </Tabs>
       </section>
 
-      {/* ── 2. Full palettes ── */}
+      {/* ── 3. Full palettes ── */}
       <section>
         <h2 className="text-2xl font-bold mb-2 text-foreground">Paletas completas</h2>
         <p className="text-foreground/60 mb-8 max-w-2xl">
-          Todas as escalas de 50 a 900 disponíveis como tokens CSS e classes Tailwind.
-          O shade marcado com borda é o valor padrão recomendado para cada paleta.
+          As escalas primitivas por trás dos tokens semânticos. Servem de referência e de
+          fonte única de verdade —{' '}
+          <strong className="text-foreground/80">não use direto no componente</strong>: prefira
+          sempre a camada semântica acima, que se adapta ao tema.
         </p>
 
         <div className="space-y-10">
@@ -494,26 +500,31 @@ export default function ColorsPage() {
         </div>
       </section>
 
-      {/* ── 3. Usage guide ── */}
+      {/* ── 4. Usage guide ── */}
       <section className="mt-16">
         <h2 className="text-2xl font-bold mb-6 text-foreground">Como usar</h2>
         <Card className="p-6">
           <div className="space-y-6">
             <div>
               <h3 className="font-semibold text-foreground mb-2">Via Tailwind CSS</h3>
+              <p className="text-sm text-foreground/60 mb-3">
+                Os tokens semânticos estão expostos como classes. Nenhum hex na marcação.
+              </p>
               <pre className="bg-card text-foreground p-4 rounded-lg overflow-x-auto text-sm">
                 <code>{`{/* Botão primário */}
-<button className="bg-[#9FC132] hover:bg-[#728F21] text-white">
+<button className="bg-primary-solid hover:bg-primary-solid-hover text-white">
   Salvar
 </button>
 
-{/* Badge de erro */}
-<span className="bg-red-100 text-red-800 border border-red-300">
+{/* Badge de erro — adapta sozinho no dark */}
+<span className="bg-danger-bg text-danger-text border border-danger-border">
   Falha no pagamento
 </span>
 
-{/* Texto secundário */}
-<p className="text-slate-500">Última atualização há 2 dias</p>`}</code>
+{/* Banner informativo */}
+<div className="bg-info-bg-subtle border border-info-border text-info-text">
+  Sincronização em andamento
+</div>`}</code>
               </pre>
             </div>
 
@@ -521,37 +532,62 @@ export default function ColorsPage() {
               <h3 className="font-semibold text-foreground mb-2">Via CSS custom properties</h3>
               <pre className="bg-card text-foreground p-4 rounded-lg overflow-x-auto text-sm">
                 <code>{`.btn-primary {
-  background-color: var(--confraria-500); /* Solid */
+  background-color: var(--primary-solid);
   color: #fff;
 }
 .btn-primary:hover {
-  background-color: var(--confraria-600); /* Solid Hover */
+  background-color: var(--primary-solid-hover);
 }
 
 .input-error {
-  border-color: var(--color-red-300);   /* Border */
-  background-color: var(--color-red-50); /* Subtle Background */
+  border-color: var(--danger-border);
+  background-color: var(--danger-bg-subtle);
+  color: var(--danger-text);
 }`}</code>
               </pre>
+            </div>
+
+            <div className="rounded-lg border border-border p-4">
+              <h3 className="font-semibold text-foreground mb-2 text-sm">Regra prática</h3>
+              <p className="text-sm text-foreground/60">
+                Se você precisou escrever um hex ou um shade numérico
+                (<code className="font-mono">#F9FBEA</code>,{' '}
+                <code className="font-mono">bg-slate-100</code>) num componente, provavelmente
+                falta um token semântico. Abra a discussão antes de hardcodar — é assim que
+                dívida de UX entra no sistema.
+              </p>
             </div>
           </div>
         </Card>
       </section>
 
-      {/* ── 4. Accessibility ── */}
+      {/* ── 5. Accessibility ── */}
       <section className="mt-16">
         <h2 className="text-2xl font-bold mb-6 text-foreground">Acessibilidade</h2>
         <Card className="p-6">
           <h3 className="font-semibold text-foreground mb-2">Contraste WCAG AA</h3>
           <p className="text-foreground/60 mb-4">
-            Os tokens Solid e Text de cada papel foram validados para atingir contraste
-            mínimo de 4.5:1 sobre os respectivos tokens de Background:
+            Os pares abaixo foram desenhados para atingir contraste mínimo de 4.5:1 nos dois
+            temas. Usar os steps combinados evita ter que validar caso a caso:
           </p>
           <ul className="list-disc list-inside space-y-2 text-foreground/60 text-sm">
-            <li><strong>Subtle Background (50)</strong> + <strong>Text (700–900)</strong>: uso seguro para blocos de texto longos</li>
-            <li><strong>Solid (500–600)</strong> sobre branco: botões e badges — verificar individualmente por paleta</li>
-            <li><strong>Background (100)</strong> + <strong>Solid Hover (700)</strong>: chips e tags coloridas</li>
-            <li>Nunca use tons 200–400 como cor de texto sobre branco — contraste insuficiente</li>
+            <li>
+              <code className="font-mono text-foreground/80">bg-subtle</code> +{' '}
+              <code className="font-mono text-foreground/80">text</code>: par seguro para blocos
+              de texto longos
+            </li>
+            <li>
+              <code className="font-mono text-foreground/80">bg</code> +{' '}
+              <code className="font-mono text-foreground/80">text</code>: chips e tags coloridas
+            </li>
+            <li>
+              <code className="font-mono text-foreground/80">solid</code> sobre superfície
+              neutra: botões e badges — verificar a cor do rótulo por papel
+            </li>
+            <li>
+              Nunca use <code className="font-mono text-foreground/80">border</code> como cor de
+              texto: o step é calibrado para traço, não para leitura
+            </li>
           </ul>
         </Card>
       </section>

@@ -1,4 +1,6 @@
-/* tokens.css — theme overrides for data-theme attribute */
+/* tokens.css — theme overrides para o atributo data-theme
+   Espelha o bloco .dark de globals.css. Mantenha os dois em sincronia:
+   qualquer token semântico novo precisa existir nos dois seletores. */
 :root[data-theme="dark"] {
   /* Base colors (override) */
   --background: oklch(0.145 0 0);
@@ -8,8 +10,8 @@
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
 
-  /* Primary / Semantic */
-  --primary: oklch(0.922 0 0);
+  /* Primary / Semantic (shadcn) */
+  --primary: oklch(0.76 0.16 120);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
@@ -29,4 +31,55 @@
   --confraria-700: #576D1E;
   --confraria-800: #47571D;
   --confraria-900: #3C4B1C;
+
+  /* ─── Camada semântica — dark ────────────────────────────────────────
+     Mesmos nomes de token do light, valores invertidos. */
+  --primary-bg-subtle: #0f1a0b;
+  --primary-bg: #14220c;
+  --primary-border: #2f4f16;
+  --primary-solid: #9FC132;
+  --primary-solid-hover: #B1CE4D;
+  --primary-text: #E0EDA9;
+
+  --secondary-bg-subtle: var(--slate-900);
+  --secondary-bg: var(--slate-800);
+  --secondary-border: var(--slate-700);
+  --secondary-solid: var(--slate-600);
+  --secondary-solid-hover: var(--slate-500);
+  --secondary-text: var(--slate-100);
+
+  --neutral-bg-subtle: var(--slate-950);
+  --neutral-bg: var(--slate-900);
+  --neutral-border: var(--slate-700);
+  --neutral-solid: var(--slate-500);
+  --neutral-solid-hover: var(--slate-400);
+  --neutral-text: var(--slate-100);
+
+  --success-bg-subtle: var(--green-950);
+  --success-bg: var(--green-900);
+  --success-border: var(--green-700);
+  --success-solid: var(--green-500);
+  --success-solid-hover: var(--green-400);
+  --success-text: var(--green-200);
+
+  --warning-bg-subtle: var(--amber-950);
+  --warning-bg: var(--amber-900);
+  --warning-border: var(--amber-700);
+  --warning-solid: var(--amber-400);
+  --warning-solid-hover: var(--amber-300);
+  --warning-text: var(--amber-200);
+
+  --danger-bg-subtle: var(--red-950);
+  --danger-bg: var(--red-900);
+  --danger-border: var(--red-700);
+  --danger-solid: var(--red-500);
+  --danger-solid-hover: var(--red-400);
+  --danger-text: var(--red-200);
+
+  --info-bg-subtle: var(--blue-950);
+  --info-bg: var(--blue-900);
+  --info-border: var(--blue-700);
+  --info-solid: var(--blue-500);
+  --info-solid-hover: var(--blue-400);
+  --info-text: var(--blue-200);
 }
