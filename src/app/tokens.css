@@ -32,54 +32,60 @@
   --confraria-800: #47571D;
   --confraria-900: #3C4B1C;
 
-  /* ─── Camada semântica — dark ────────────────────────────────────────
-     Mesmos nomes de token do light, valores invertidos. */
+  /* Primary — solid sobe para confraria-400 (mais claro que no light) */
   --primary-bg-subtle: #0f1a0b;
   --primary-bg: #14220c;
   --primary-border: #2f4f16;
-  --primary-solid: #9FC132;
-  --primary-solid-hover: #B1CE4D;
+  --primary-solid: #B1CE4D;
+  --primary-solid-hover: #C9DF77;
+  --primary-on-solid: #1f2a0a;
   --primary-text: #E0EDA9;
 
   --secondary-bg-subtle: var(--slate-900);
   --secondary-bg: var(--slate-800);
   --secondary-border: var(--slate-700);
-  --secondary-solid: var(--slate-600);
-  --secondary-solid-hover: var(--slate-500);
+  --secondary-solid: var(--slate-500);
+  --secondary-solid-hover: var(--slate-400);
+  --secondary-on-solid: var(--slate-50);
   --secondary-text: var(--slate-100);
 
   --neutral-bg-subtle: var(--slate-950);
   --neutral-bg: var(--slate-900);
   --neutral-border: var(--slate-700);
-  --neutral-solid: var(--slate-500);
-  --neutral-solid-hover: var(--slate-400);
+  --neutral-solid: var(--slate-400);
+  --neutral-solid-hover: var(--slate-300);
+  --neutral-on-solid: var(--slate-900);
   --neutral-text: var(--slate-100);
 
   --success-bg-subtle: var(--green-950);
   --success-bg: var(--green-900);
   --success-border: var(--green-700);
-  --success-solid: var(--green-500);
-  --success-solid-hover: var(--green-400);
+  --success-solid: var(--green-400);
+  --success-solid-hover: var(--green-300);
+  --success-on-solid: var(--green-950);
   --success-text: var(--green-200);
 
   --warning-bg-subtle: var(--amber-950);
   --warning-bg: var(--amber-900);
   --warning-border: var(--amber-700);
-  --warning-solid: var(--amber-400);
-  --warning-solid-hover: var(--amber-300);
+  --warning-solid: var(--amber-300);
+  --warning-solid-hover: var(--amber-200);
+  --warning-on-solid: #3b2500;
   --warning-text: var(--amber-200);
 
   --danger-bg-subtle: var(--red-950);
   --danger-bg: var(--red-900);
   --danger-border: var(--red-700);
-  --danger-solid: var(--red-500);
-  --danger-solid-hover: var(--red-400);
+  --danger-solid: var(--red-400);
+  --danger-solid-hover: var(--red-300);
+  --danger-on-solid: var(--red-950);
   --danger-text: var(--red-200);
 
   --info-bg-subtle: var(--blue-950);
   --info-bg: var(--blue-900);
   --info-border: var(--blue-700);
-  --info-solid: var(--blue-500);
-  --info-solid-hover: var(--blue-400);
+  --info-solid: var(--blue-400);
+  --info-solid-hover: var(--blue-300);
+  --info-on-solid: var(--blue-950);
   --info-text: var(--blue-200);
 }

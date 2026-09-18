@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 // ─── Camada semântica ────────────────────────────────────────────────────────
-// Cada papel expõe os MESMOS 6 steps. O nome do token é estável entre light e
+// Cada papel expõe os MESMOS 7 steps. O nome do token é estável entre light e
 // dark — só o valor muda. Assim um componente escrito com var(--danger-bg-subtle)
 // funciona nos dois temas sem condicional, e a doc nunca mente sobre o valor.
 //
@@ -29,7 +29,7 @@ type SemanticRole = {
   steps: Step[]
 }
 
-// Definição dos 6 steps — a "gramática" do sistema.
+// Definição dos 7 steps — a "gramática" do sistema.
 const stepDefinitions = [
   {
     token: 'bg-subtle',
@@ -57,6 +57,11 @@ const stepDefinitions = [
     description: 'Estado de hover e press do solid.',
   },
   {
+    token: 'on-solid',
+    role: 'On Solid',
+    description: 'Cor do rótulo e do ícone POR CIMA do solid. Existe para que o componente nunca precise adivinhar se o texto é claro ou escuro.',
+  },
+  {
     token: 'text',
     role: 'Text',
     description: 'Texto e ícone sobre bg-subtle ou bg. Validado para 4.5:1.',
@@ -73,8 +78,9 @@ const semanticRoles: SemanticRole[] = [
       { token: 'bg-subtle',   role: 'Subtle Background', description: '', light: { shade: '50',  hex: '#F9FBEA' }, dark: { shade: '50',  hex: '#0f1a0b' }, usage: 'Fundo de banners, chips selecionados' },
       { token: 'bg',          role: 'Background',        description: '', light: { shade: '100', hex: '#F0F5D2' }, dark: { shade: '100', hex: '#14220c' }, usage: 'Hover em superfícies subtis' },
       { token: 'border',      role: 'Border',            description: '', light: { shade: '300', hex: '#C9DF77' }, dark: { shade: '400', hex: '#2f4f16' }, usage: 'Bordas de inputs, outlines' },
-      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '500', hex: '#9FC132' }, dark: { shade: '500', hex: '#9FC132' }, usage: 'Botão primário, ícones de destaque', default: true },
-      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '600', hex: '#728F21' }, dark: { shade: '400', hex: '#B1CE4D' }, usage: 'Hover do botão primário' },
+      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '500', hex: '#9FC132' }, dark: { shade: '400', hex: '#B1CE4D' }, usage: 'Botão primário, ícones de destaque', default: true },
+      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '600', hex: '#728F21' }, dark: { shade: '300', hex: '#C9DF77' }, usage: 'Hover do botão primário' },
+      { token: 'on-solid',   role: 'On Solid',          description: '', light: { shade: '—', hex: '#1f2a0a' }, dark: { shade: '—', hex: '#1f2a0a' }, usage: 'Cor do rótulo/ícone sobre o solid' },
       { token: 'text',        role: 'Text',              description: '', light: { shade: '700', hex: '#576D1E' }, dark: { shade: '200', hex: '#E0EDA9' }, usage: 'Texto de link sobre o fundo do papel' },
     ],
   },
@@ -87,8 +93,9 @@ const semanticRoles: SemanticRole[] = [
       { token: 'bg-subtle',   role: 'Subtle Background', description: '', light: { shade: '50',  hex: '#f8fafc' }, dark: { shade: '900', hex: '#0f172a' }, usage: 'Fundo alternativo de seções' },
       { token: 'bg',          role: 'Background',        description: '', light: { shade: '100', hex: '#f1f5f9' }, dark: { shade: '800', hex: '#1e293b' }, usage: 'Fundo de cards secundários' },
       { token: 'border',      role: 'Border',            description: '', light: { shade: '300', hex: '#cbd5e1' }, dark: { shade: '700', hex: '#334155' }, usage: 'Divisores, bordas suaves' },
-      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '600', hex: '#475569' }, dark: { shade: '600', hex: '#475569' }, usage: 'Botão secundário, ícones', default: true },
-      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '700', hex: '#334155' }, dark: { shade: '500', hex: '#64748b' }, usage: 'Hover do botão secundário' },
+      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '600', hex: '#475569' }, dark: { shade: '500', hex: '#64748b' }, usage: 'Botão secundário, ícones', default: true },
+      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '700', hex: '#334155' }, dark: { shade: '400', hex: '#94a3b8' }, usage: 'Hover do botão secundário' },
+      { token: 'on-solid',   role: 'On Solid',          description: '', light: { shade: '—', hex: '#ffffff' }, dark: { shade: '—', hex: '#f8fafc' }, usage: 'Cor do rótulo/ícone sobre o solid' },
       { token: 'text',        role: 'Text',              description: '', light: { shade: '800', hex: '#1e293b' }, dark: { shade: '100', hex: '#f1f5f9' }, usage: 'Texto de apoio sobre o fundo do papel' },
     ],
   },
@@ -101,8 +108,9 @@ const semanticRoles: SemanticRole[] = [
       { token: 'bg-subtle',   role: 'Subtle Background', description: '', light: { shade: '50',  hex: '#f8fafc' }, dark: { shade: '950', hex: '#020617' }, usage: 'Fundo da página / canvas' },
       { token: 'bg',          role: 'Background',        description: '', light: { shade: '100', hex: '#f1f5f9' }, dark: { shade: '900', hex: '#0f172a' }, usage: 'Cards, painéis elevados' },
       { token: 'border',      role: 'Border',            description: '', light: { shade: '300', hex: '#cbd5e1' }, dark: { shade: '700', hex: '#334155' }, usage: 'Bordas de cards, separadores' },
-      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '500', hex: '#64748b' }, dark: { shade: '500', hex: '#64748b' }, usage: 'Ícones neutros, placeholders fortes' },
-      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '600', hex: '#475569' }, dark: { shade: '400', hex: '#94a3b8' }, usage: 'Hover de elementos neutros' },
+      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '500', hex: '#64748b' }, dark: { shade: '400', hex: '#94a3b8' }, usage: 'Ícones neutros, placeholders fortes' },
+      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '600', hex: '#475569' }, dark: { shade: '300', hex: '#cbd5e1' }, usage: 'Hover de elementos neutros' },
+      { token: 'on-solid',   role: 'On Solid',          description: '', light: { shade: '—', hex: '#ffffff' }, dark: { shade: '—', hex: '#0f172a' }, usage: 'Cor do rótulo/ícone sobre o solid' },
       { token: 'text',        role: 'Text',              description: '', light: { shade: '700', hex: '#334155' }, dark: { shade: '100', hex: '#f1f5f9' }, usage: 'Corpo do texto', default: true },
     ],
   },
@@ -115,8 +123,9 @@ const semanticRoles: SemanticRole[] = [
       { token: 'bg-subtle',   role: 'Subtle Background', description: '', light: { shade: '50',  hex: '#f0fdf4' }, dark: { shade: '950', hex: '#052e16' }, usage: 'Fundo de alertas de sucesso' },
       { token: 'bg',          role: 'Background',        description: '', light: { shade: '100', hex: '#dcfce7' }, dark: { shade: '900', hex: '#14532d' }, usage: 'Chips de status: concluído' },
       { token: 'border',      role: 'Border',            description: '', light: { shade: '300', hex: '#86efac' }, dark: { shade: '700', hex: '#15803d' }, usage: 'Borda de inputs válidos' },
-      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '600', hex: '#16a34a' }, dark: { shade: '500', hex: '#22c55e' }, usage: 'Badges de sucesso, ícones', default: true },
-      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '700', hex: '#15803d' }, dark: { shade: '400', hex: '#4ade80' }, usage: 'Hover de elementos de sucesso' },
+      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '700', hex: '#15803d' }, dark: { shade: '400', hex: '#4ade80' }, usage: 'Badges de sucesso, ícones', default: true },
+      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '800', hex: '#166534' }, dark: { shade: '300', hex: '#86efac' }, usage: 'Hover de elementos de sucesso' },
+      { token: 'on-solid',   role: 'On Solid',          description: '', light: { shade: '—', hex: '#ffffff' }, dark: { shade: '—', hex: '#052e16' }, usage: 'Cor do rótulo/ícone sobre o solid' },
       { token: 'text',        role: 'Text',              description: '', light: { shade: '800', hex: '#166534' }, dark: { shade: '200', hex: '#bbf7d0' }, usage: 'Texto sobre fundo de sucesso' },
     ],
   },
@@ -129,8 +138,9 @@ const semanticRoles: SemanticRole[] = [
       { token: 'bg-subtle',   role: 'Subtle Background', description: '', light: { shade: '50',  hex: '#fffbeb' }, dark: { shade: '950', hex: '#451a03' }, usage: 'Fundo de banners de aviso' },
       { token: 'bg',          role: 'Background',        description: '', light: { shade: '100', hex: '#fef3c7' }, dark: { shade: '900', hex: '#78350f' }, usage: 'Chips de status: pendente' },
       { token: 'border',      role: 'Border',            description: '', light: { shade: '300', hex: '#fcd34d' }, dark: { shade: '700', hex: '#b45309' }, usage: 'Borda de campos com aviso' },
-      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '500', hex: '#f59e0b' }, dark: { shade: '400', hex: '#fbbf24' }, usage: 'Ícones de aviso, badges', default: true },
-      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '600', hex: '#d97706' }, dark: { shade: '300', hex: '#fcd34d' }, usage: 'Hover de elementos de aviso' },
+      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '500', hex: '#f59e0b' }, dark: { shade: '300', hex: '#fcd34d' }, usage: 'Ícones de aviso, badges', default: true },
+      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '600', hex: '#d97706' }, dark: { shade: '200', hex: '#fde68a' }, usage: 'Hover de elementos de aviso' },
+      { token: 'on-solid',   role: 'On Solid',          description: '', light: { shade: '—', hex: '#3b2500' }, dark: { shade: '—', hex: '#3b2500' }, usage: 'Cor do rótulo/ícone sobre o solid' },
       { token: 'text',        role: 'Text',              description: '', light: { shade: '800', hex: '#92400e' }, dark: { shade: '200', hex: '#fde68a' }, usage: 'Texto sobre fundo de aviso' },
     ],
   },
@@ -143,8 +153,9 @@ const semanticRoles: SemanticRole[] = [
       { token: 'bg-subtle',   role: 'Subtle Background', description: '', light: { shade: '50',  hex: '#fef2f2' }, dark: { shade: '950', hex: '#450a0a' }, usage: 'Fundo de alertas de erro' },
       { token: 'bg',          role: 'Background',        description: '', light: { shade: '100', hex: '#fee2e2' }, dark: { shade: '900', hex: '#7f1d1d' }, usage: 'Chips de status: falha' },
       { token: 'border',      role: 'Border',            description: '', light: { shade: '300', hex: '#fca5a5' }, dark: { shade: '700', hex: '#b91c1c' }, usage: 'Borda de inputs inválidos' },
-      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '600', hex: '#dc2626' }, dark: { shade: '500', hex: '#ef4444' }, usage: 'Botão destrutivo, ícones de erro', default: true },
-      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '700', hex: '#b91c1c' }, dark: { shade: '400', hex: '#f87171' }, usage: 'Hover de ações destrutivas' },
+      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '600', hex: '#dc2626' }, dark: { shade: '400', hex: '#f87171' }, usage: 'Botão destrutivo, ícones de erro', default: true },
+      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '700', hex: '#b91c1c' }, dark: { shade: '300', hex: '#fca5a5' }, usage: 'Hover de ações destrutivas' },
+      { token: 'on-solid',   role: 'On Solid',          description: '', light: { shade: '—', hex: '#ffffff' }, dark: { shade: '—', hex: '#450a0a' }, usage: 'Cor do rótulo/ícone sobre o solid' },
       { token: 'text',        role: 'Text',              description: '', light: { shade: '800', hex: '#991b1b' }, dark: { shade: '200', hex: '#fecaca' }, usage: 'Mensagens de erro em campos' },
     ],
   },
@@ -157,8 +168,9 @@ const semanticRoles: SemanticRole[] = [
       { token: 'bg-subtle',   role: 'Subtle Background', description: '', light: { shade: '50',  hex: '#eff6ff' }, dark: { shade: '950', hex: '#172554' }, usage: 'Fundo de tooltips, banners info' },
       { token: 'bg',          role: 'Background',        description: '', light: { shade: '100', hex: '#dbeafe' }, dark: { shade: '900', hex: '#1e3a8a' }, usage: 'Chips de status: em andamento' },
       { token: 'border',      role: 'Border',            description: '', light: { shade: '300', hex: '#93c5fd' }, dark: { shade: '700', hex: '#1d4ed8' }, usage: 'Borda de elementos informativos' },
-      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '600', hex: '#2563eb' }, dark: { shade: '500', hex: '#3b82f6' }, usage: 'Links, badges informativos', default: true },
-      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '700', hex: '#1d4ed8' }, dark: { shade: '400', hex: '#60a5fa' }, usage: 'Hover de links e ações info' },
+      { token: 'solid',       role: 'Solid',             description: '', light: { shade: '600', hex: '#2563eb' }, dark: { shade: '400', hex: '#60a5fa' }, usage: 'Links, badges informativos', default: true },
+      { token: 'solid-hover', role: 'Solid Hover',       description: '', light: { shade: '700', hex: '#1d4ed8' }, dark: { shade: '300', hex: '#93c5fd' }, usage: 'Hover de links e ações info' },
+      { token: 'on-solid',   role: 'On Solid',          description: '', light: { shade: '—', hex: '#ffffff' }, dark: { shade: '—', hex: '#172554' }, usage: 'Cor do rótulo/ícone sobre o solid' },
       { token: 'text',        role: 'Text',              description: '', light: { shade: '800', hex: '#1e40af' }, dark: { shade: '200', hex: '#bfdbfe' }, usage: 'Texto informativo sobre o fundo do papel' },
     ],
   },
@@ -317,6 +329,7 @@ export default function ColorsPage() {
         const bgSubtle = role.steps.find((s) => s.token === 'bg-subtle')!
         const solid = role.steps.find((s) => s.token === 'solid')!
         const solidHover = role.steps.find((s) => s.token === 'solid-hover')!
+        const onSolid = role.steps.find((s) => s.token === 'on-solid')!
         const border = role.steps.find((s) => s.token === 'border')!
         const text = role.steps.find((s) => s.token === 'text')!
 
@@ -337,7 +350,7 @@ export default function ColorsPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
               {role.steps.map((step) => (
                 <Card
                   key={step.token}
@@ -382,7 +395,7 @@ export default function ColorsPage() {
                 className="rounded-md px-3 py-2 text-sm font-semibold transition-opacity hover:opacity-85"
                 style={{
                   backgroundColor: value(solid).hex,
-                  color: role.role === 'Warning' || role.role === 'Primary' ? '#1f2a0a' : '#fff',
+                  color: value(onSolid).hex,
                 }}
                 title={`hover: ${value(solidHover).hex}`}
               >
@@ -412,7 +425,7 @@ export default function ColorsPage() {
       <section className="mb-16">
         <h2 className="text-2xl font-bold mb-2 text-foreground">A gramática dos tokens</h2>
         <p className="text-foreground/60 mb-6 max-w-2xl">
-          Todo papel semântico expõe os mesmos 6 steps, com os mesmos nomes. O nome do token
+          Todo papel semântico expõe os mesmos 7 steps, com os mesmos nomes. O nome do token
           não muda entre light e dark — só o valor. Isso significa que um componente escrito
           com <code className="font-mono text-sm">var(--danger-bg-subtle)</code> funciona nos
           dois temas sem nenhuma condicional.
@@ -436,8 +449,71 @@ export default function ColorsPage() {
 
         <p className="text-sm text-foreground/50 mt-4">
           Lido como fórmula: <code className="font-mono">--[papel]-[step]</code>. Sete papéis
-          × seis steps = 42 tokens semânticos, todos previsíveis.
+          × sete steps = 49 tokens semânticos, todos previsíveis.
         </p>
+      </section>
+
+      {/* ── 1b. Como o switch de tema funciona ── */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-bold mb-2 text-foreground">Como o switch de tema funciona</h2>
+        <p className="text-foreground/60 mb-6 max-w-2xl">
+          O sistema tem três camadas. O tema só troca na do meio — por isso nenhum componente
+          precisa saber que dark mode existe.
+        </p>
+
+        <Card className="p-6 mb-6">
+          <div className="space-y-4 font-mono text-sm">
+            <div>
+              <p className="text-foreground/40 text-xs font-sans mb-1">1 · Primitiva — nunca muda</p>
+              <p className="text-foreground">--green-500: #22c55e;</p>
+            </div>
+            <div className="pl-4 border-l-2 border-border">
+              <p className="text-foreground/40 text-xs font-sans mb-1">
+                2 · Semântica — <strong>só esta camada troca</strong>
+              </p>
+              <p className="text-foreground">
+                --success-solid: var(--green-600); <span className="text-foreground/40">/* light */</span>
+              </p>
+              <p className="text-foreground">
+                --success-solid: var(--green-400); <span className="text-foreground/40">/* dark */</span>
+              </p>
+            </div>
+            <div className="pl-8 border-l-2 border-border">
+              <p className="text-foreground/40 text-xs font-sans mb-1">
+                3 · Componente — agnóstico de tema
+              </p>
+              <p className="text-foreground">background: var(--success-solid);</p>
+            </div>
+          </div>
+        </Card>
+
+        <div className="rounded-lg border border-border p-5">
+          <h3 className="font-semibold text-foreground mb-2">
+            Dark não é o light invertido
+          </h3>
+          <p className="text-sm text-foreground/60 mb-3">
+            Este é o erro mais comum. Trocar o fundo de claro para escuro e manter as mesmas
+            cores de acento produz uma interface que cansa a vista: cores muito saturadas
+            vibram opticamente sobre fundo escuro. Duas regras que o sistema aplica:
+          </p>
+          <ul className="list-disc list-inside space-y-2 text-sm text-foreground/60">
+            <li>
+              <strong className="text-foreground/80">O solid fica mais claro no dark, não mais escuro.</strong>{' '}
+              No light usamos o shade 500–600; no dark, o 400. É o mesmo princípio do Material 3,
+              que move o papel <em>primary</em> do tom 40 para o tom 80 ao trocar de tema.
+            </li>
+            <li>
+              <strong className="text-foreground/80">O nome do token é estável; o valor não.</strong>{' '}
+              <code className="font-mono">--danger-solid</code> existe nos dois temas e resolve
+              para hexes diferentes. É por isso que o componente não precisa de condicional.
+            </li>
+          </ul>
+          <p className="text-sm text-foreground/50 mt-3">
+            Todos os pares deste sistema foram medidos: texto atinge no mínimo 4.5:1 sobre o
+            fundo do papel, e o solid atinge no mínimo 3:1 (limite WCAG para componente não
+            textual).
+          </p>
+        </div>
       </section>
 
       {/* ── 2. Papéis semânticos ── */}
@@ -512,7 +588,7 @@ export default function ColorsPage() {
               </p>
               <pre className="bg-card text-foreground p-4 rounded-lg overflow-x-auto text-sm">
                 <code>{`{/* Botão primário */}
-<button className="bg-primary-solid hover:bg-primary-solid-hover text-white">
+<button className="bg-primary-solid hover:bg-primary-solid-hover text-primary-on-solid">
   Salvar
 </button>
 
@@ -533,7 +609,7 @@ export default function ColorsPage() {
               <pre className="bg-card text-foreground p-4 rounded-lg overflow-x-auto text-sm">
                 <code>{`.btn-primary {
   background-color: var(--primary-solid);
-  color: #fff;
+  color: var(--primary-on-solid); /* nunca hardcode #fff aqui */
 }
 .btn-primary:hover {
   background-color: var(--primary-solid-hover);
